@@ -1,0 +1,23 @@
+{
+    "name": "skinnycoder/myppdb",
+    "description": "Ini tugas akhir saya",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+            {
+                "name": "Rizki Ristanto Pratama",
+                "email": "skinnycoders@gmail.com"
+            }
+        ],
+    "require": {
+        "nesbot/carbon": "^2.0@dev",
+	"setasign/fpdf": "1.8.1"
+    },
+    "suggest": {
+		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
+	},
+	"require-dev": {
+		"mikey179/vfsStream": "1.1.*",
+		"phpunit/phpunit": "4.* || 5.*"
+	}
+}
