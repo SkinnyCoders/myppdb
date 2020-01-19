@@ -78,7 +78,7 @@ class Data_berkas extends CI_controller
                     $this->session->set_flashdata('msg_success', 'Selamat, Data berhasil diperbarui');
                     redirect('peserta/data_berkas');
                 } else {
-                    $this->session->set_flashdata('msg_failed', 'Maaf, data Penghargaan gagal diperbarui');
+                    $this->session->set_flashdata('msg_failed', 'Maaf, Data gagal diperbarui');
                     redirect('peserta/data_berkas');
                 }
             } else {
@@ -93,12 +93,12 @@ class Data_berkas extends CI_controller
                             $this->session->set_flashdata('msg_success', 'Selamat, Data berhasil diperbarui');
                             redirect('peserta/data_berkas');
                         } else {
-                            $this->session->set_flashdata('msg_failed', 'Maaf, data Penghargaan gagal diperbarui');
+                            $this->session->set_flashdata('msg_failed', 'Maaf, Data gagal diperbarui');
                             redirect('peserta/data_berkas');
                         }
                     }
                 } else {
-                    $this->session->set_flashdata('msg_failed', 'Maaf, data Penghargaan gagal diperbarui');
+                    $this->session->set_flashdata('msg_failed', 'Maaf, Data gagal diperbarui');
                     redirect('peserta/data_berkas');
                 }
             }

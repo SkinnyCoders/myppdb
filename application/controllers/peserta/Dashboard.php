@@ -16,9 +16,12 @@ class Dashboard extends CI_controller
 
     public function index()
     {
-        $data['title'] = 'Dashboard Kepala Sekolah';
-        $data['berkas'] = $this->m_peserta->getBerkas(4);
-        $data['data_all'] = $this->m_peserta->getAllDataPeserta(4);
+        $data = [
+            'title' => 'Dashboard Kepala Sekolah',
+            'berkas' => $this->m_peserta->getBerkas(4),
+            'data_all' => $this->m_peserta->getAllDataPeserta(4)
+        ];
+
         getViews($data, 'v_peserta/dashboard');
     }
 

@@ -145,7 +145,7 @@
             </a>
           </li>
         <?php } elseif ($this->session->userdata('role') == 2) {
-          ?>
+        ?>
           <li class="nav-item">
             <a href="<?= base_url('admin') ?>" class="nav-link">
               <i class="nav-icon fa fa-home"></i>
@@ -251,7 +251,7 @@
           </li>
         <?php } else { ?>
           <li class="nav-item">
-            <a href="<?= base_url('operator/soal-seleksi') ?>" class="nav-link">
+            <a href="<?= base_url('peserta/dashboard') ?>" class="nav-link">
               <i class="nav-icon fa fa-home"></i>
               <p>
                 Dashboard
@@ -274,13 +274,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('admin/pengguna') ?>" class="nav-link">
+                <a href="<?= base_url('peserta/data_ortu') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Ortu</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('admin/pengguna') ?>" class="nav-link">
+                <a href="<?= base_url('peserta/sekolah_asal') ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Sekolah</p>
                 </a>
@@ -314,7 +314,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-user-o nav-icon"></i>
                   <p>Profil</p>
                 </a>
               </li>

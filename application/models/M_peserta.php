@@ -59,4 +59,33 @@ class m_peserta extends CI_model
         $this->db->join('peserta', 'peserta.id_berkas = data_berkas.id_berkas');
         return $this->db->get()->row_array();
     }
+
+    public function getDataOrtu($id)
+    {
+        $this->db->select('data_ortu.*');
+        $this->db->from('data_ortu');
+        $this->db->join('peserta', 'peserta.id_ortu=data_ortu.id_ortu');
+        return $this->db->get()->row_array();
+    }
+
+    public function updatePesertaOrtu($id_ortu, $id)
+    {
+        $this->db->set('id_ortu', $id_ortu);
+        $this->db->where('id_peserta', $id);
+        return $this->db->update('peserta');
+    }
+
+    public function getDataSekolah($id)
+    {
+        $this->db->select('data_sekolah_asal.*');
+        $this->db->from('data_sekolah_asal');
+        $this->db->join('peserta', 'peserta.id_sekolah_asal=data_sekolah_asal.id_data_sekolah_asal');
+        return $this->db->get()->row_array();
+    }
+
+    public function updatePesertaSekolah($id_sekolah, $id){
+        $this->db->set('id_sekolah_asal', $id_sekolah);
+        $this->db->where('id_peserta', $id);
+        return $this->db->update('peserta');
+    }
 }

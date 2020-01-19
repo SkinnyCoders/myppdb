@@ -38,7 +38,7 @@
                           </li>
                           <li class="list-group-item">
                               Kelengkapan Berkas
-                              <?php if (in_array(NULL, $berkas)) { ?>
+                              <?php if ($berkas == NULL || in_array(NULL, $berkas)) { ?>
                                   <i class="fas fa-lg fa-times text-danger float-right my-1"></i>
                               <?php } else { ?>
                                   <i class="fas fa-lg fa-check text-success float-right my-1"></i>
@@ -55,7 +55,7 @@
                           </li>
                           <li class="list-group-item">
                               Melengkapi Persyaratan
-                              <?php if ($data_all == NULL || in_array(NULL, $data_all) || in_array(NULL, $berkas)) { ?>
+                              <?php if ($data_all == NULL || in_array(NULL, $data_all) || $berkas == NULL || in_array(NULL, $berkas)) { ?>
                                   <i class="fas fa-lg fa-history text-secondary float-right my-1"></i>
                               <?php } else { ?>
                                   <i class="fas fa-lg fa-check text-success float-right my-1"></i>

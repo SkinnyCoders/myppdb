@@ -16,11 +16,13 @@ class Data_diri extends CI_controller
 
     public function index()
     {
-        $data['title'] = 'Data Diri';
-        $data['data_diri'] = $this->m_peserta->getDataDiri(4);
+        $data = [
+            'title' => 'Data Diri',
+            'data_diri' => $this->m_peserta->getDataDiri(4)
+        ];
 
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim', ['required' => 'Nama tidak boleh kosong']);
-        $this->form_validation->set_rules('nisn', 'NISN', 'required|trim|numeric|callback_CekNisn', ['required' => '{field} tidak boleh kosong', 'numeric' => 'NISN harus berupa angka', 'CekNisn' => '{field} sudah digunakan']);
+        $this->form_validation->set_rules('nisn', 'NISN', 'required|trim|numeric', ['required' => '{field} tidak boleh kosong', 'numeric' => 'NISN harus berupa angka', 'CekNisn' => '{field} sudah digunakan']);
         $this->form_validation->set_rules('telp', 'No Telp', 'numeric|trim', ['numeric' => '{field} harus berupa angka']);
         $this->form_validation->set_rules('agama', 'Agama', 'required|trim', ['required' => '{field} tidak boleh kosong']);
         $this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'required|trim', ['required' => '{field} tidak boleh kosong']);
@@ -29,7 +31,7 @@ class Data_diri extends CI_controller
 
         if ($this->form_validation->run() == FALSE) {
             getViews($data, 'v_peserta/v_data_diri');
-        } else { 
+        } else {
             $tgl = $this->input->post('tgl_lahir', true);
             $tgl = DateTime::createFromFormat('m/d/Y', $tgl)->format('Y-m-d');
             $data = [
@@ -39,24 +41,25 @@ class Data_diri extends CI_controller
                 'tgl_lahir' => $tgl,
                 'jenis_kelamin' => $this->input->post('gender'),
                 'alamat_rumah' => $this->input->post('alamat', true),
-                'agama' =>$this->input->post('agama', true),
+                'agama' => $this->input->post('agama', true),
                 'no_hp' => $this->input->post('telp', true)
             ];
 
-            if($this->m_peserta->updateData($data, $this->input->post('id'))){
+            if ($this->m_peserta->updateData($data, $this->input->post('id'))) {
                 $this->session->set_flashdata('msg_success', 'Selamat, Data berhasil diperbarui');
                 redirect('peserta/data_diri');
-            }else{
+            } else {
                 $this->session->set_flashdata('msg_failed', 'Maaf, data Penghargaan gagal diperbarui');
                 redirect('peserta/data_diri');
             }
         }
     }
 
-    public function CekNisn($nisn){
-        if($this->m_peserta->cekNISN($nisn) > 0){
+    public function CekNisn($nisn)
+    {
+        if ($this->m_peserta->cekNISN($nisn) > 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
