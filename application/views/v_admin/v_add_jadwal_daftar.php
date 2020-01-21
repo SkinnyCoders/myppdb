@@ -10,7 +10,7 @@
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-                          <li class="breadcrumb-item"><a href="<?= base_url('admin/jadwal_pendaftaran') ?>">Jadwal Pendaftaran</a></li>
+                          <li class="breadcrumb-item"><a href="<?= base_url('admin/pendaftaran/jadwal') ?>">Jadwal Pendaftaran</a></li>
                           <li class="breadcrumb-item active">Tambah</li>
                       </ol>
                   </div><!-- /.col -->

@@ -88,4 +88,22 @@ class m_peserta extends CI_model
         $this->db->where('id_peserta', $id);
         return $this->db->update('peserta');
     }
+
+    public function cekStatus($id){
+        $this->db->select('pendaftaran.status_kelulusan');
+        $this->db->from('peserta');
+        $this->db->join('pendaftaran', 'pendaftaran.id_pendaftaran=peserta.id_pendaftaran');
+        $this->db->where('peserta.id_peserta', $id);
+        return $this->db->get()->row_array();
+    }
+
+    public function cekPencadangan($id){
+        $this->db->select('status_pencadangan');
+        $this->db->from('peserta');
+        $this->db->join('pendaftaran', 'pendaftaran.id_pendaftaran=peserta.id_pendaftaran');
+        $this->db->join('pencadangan', 'pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran');
+        $this->db->where('peserta.id_peserta', $id);
+        $this->db->where('status_pencadangan', 'true');
+        return $this->db->get()->num_rows();
+    }
 }

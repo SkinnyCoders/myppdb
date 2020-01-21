@@ -26,7 +26,8 @@
                      <div class="card">
                          <div class="card-header">
                              <h3 class="card-title">Tabel data Seleksi</h3>
-                             <a class="btn btn-sm btn-primary float-right" href="<?= base_url('operator/soal-seleksi/tambah') ?>"><i class="fa fa-user-plus"></i> Tambah Tes Seleksi</a>
+                             <a class="btn btn-sm btn-primary float-right ml-3" href="<?= base_url('operator/soal-seleksi/tambah') ?>"><i class="fa fa-user-plus"></i> Tambah Tes Seleksi</a>
+                             <a class="btn btn-sm btn-primary float-right" href="<?= base_url('operator/soal-seleksi/konfigurasi') ?>"><i class="fa fa-cog"></i> Konfigurasi Tes Seleksi</a>
                          </div>
                          <!-- /.card-header -->
                          <div class="card-body">

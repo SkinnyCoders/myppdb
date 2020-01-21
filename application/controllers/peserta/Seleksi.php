@@ -20,6 +20,8 @@ class Seleksi extends CI_controller
         $data['data_all'] = $this->m_peserta->getAllDataPeserta(4);
         $data['token'] = $this->getToken(4);
 
+        //tampil data seleksi berdasarkan konfigurasi
+
         getViews($data, 'v_peserta/v_token_seleksi');
     }
 

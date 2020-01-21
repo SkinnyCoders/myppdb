@@ -46,4 +46,8 @@ class M_seleksi extends CI_Model
         $this->db->where('tes_seleksi.id_tes_seleksi', $id);
         return $this->db->get()->result_array();
     }
+
+    public function getTesKonfig($id){
+        return $this->db->query("SELECT * FROM `program_studi` WHERE NOT EXISTS (SELECT * FROM konfigurasi_tes_seleksi WHERE konfigurasi_tes_seleksi.id_program_studi=program_studi.id_program_studi AND konfigurasi_tes_seleksi.id_tes_seleksi = $id)")->result_array();
+    }
 }

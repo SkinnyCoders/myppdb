@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * 
  */
-class Jadwal_pendaftaran extends CI_Controller
+class Jadwal extends CI_Controller
 {
     public function __construct()
     {
@@ -51,10 +51,10 @@ class Jadwal_pendaftaran extends CI_Controller
 
             if ($insert) {
                 $this->session->set_flashdata('msg_success', 'Selamat, Data berhasil disimpan');
-                redirect('admin/jadwal_pendaftaran');
+                redirect('admin/pendaftaran/jadwal');
             } else {
                 $this->session->set_flashdata('msg_failed', 'Maaf, Data gagal disimpan');
-                redirect('admin/jadwal_pendaftaran');
+                redirect('admin/pendaftaran/jadwal');
             }
         }
     }

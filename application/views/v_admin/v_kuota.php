@@ -128,7 +128,7 @@
                  </button>
                </div>
                <div class="modal-body">
-                 <form action="<?= base_url('admin/sekolah/kuota/update') ?>" method="POST">
+                 <form action="<?= base_url('admin/pendaftaran/kuota/update') ?>" method="POST">
                    <div class="form-group">
                      <label for="nama">Untuk Jurusan</label>
                      <input type="hidden" name="id" id="id" value="">
@@ -203,7 +203,7 @@
      var dataId = this.id;
      $.ajax({
        type: "post",
-       url: "<?= base_url('admin/sekolah/kuota/update') ?>",
+       url: "<?= base_url('admin/pendaftaran/kuota/update') ?>",
        data: {
          'id_get_update': dataId
        },
@@ -233,15 +233,15 @@
          if (isConfirm.value) {
            $.ajax({
              type: "post",
-             url: "<?= base_url() ?>admin/sekolah/kuota/delete/" + dataId,
+             url: "<?= base_url() ?>admin/pendaftaran/kuota/delete/" + dataId,
              data: {
                'id_pengguna': dataId
              },
              success: function(respone) {
-               window.location.href = "<?= base_url('admin/sekolah/kuota') ?>";
+               window.location.href = "<?= base_url('admin/pendaftaran/kuota') ?>";
              },
              error: function(request, error) {
-               window.location.href = "<?= base_url('admin/sekolah/kuota') ?>";
+               window.location.href = "<?= base_url('admin/pendaftaran/kuota') ?>";
              },
            });
          } else {

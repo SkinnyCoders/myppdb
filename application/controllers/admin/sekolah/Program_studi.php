@@ -95,7 +95,7 @@ class Program_studi extends CI_controller
 
             echo json_encode($data);
         } elseif (isset($_POST['simpan'])) {
-            $this->form_validation->set_rules('nama', 'Nama Program Studi', 'required|trim|callback_CekJurusan', ['required' => '{field} tidak boleh kosong']);
+            $this->form_validation->set_rules('nama', 'Nama Program Studi', 'required|trim', ['required' => '{field} tidak boleh kosong']);
             $this->form_validation->set_rules('akreditasi', 'Akreditasi', 'required', ['required' => 'Harap pilih {field}!']);
             $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim', ['required' => '{field} tidak boleh kosong']);
 

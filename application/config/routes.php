@@ -77,6 +77,10 @@ $route['login'] = 'c_peserta/peserta/login';
 //login admin
 $route['admin/login'] = 'auth/login';
 
+//registrasi
+$route['registrasi/(:any)'] = 'c_home/registrasi';
+$route['registrasi'] = 'c_home/registrasi';
+
 //dashboard routing
 $route['admin'] = 'admin/dashboard';
 $route['operator'] = 'operator/dashboard';
@@ -88,6 +92,7 @@ $route['operator/soal-seleksi/tambah'] = 'operator/seleksi/add';
 $route['operator/soal-seleksi/ubah/(:any)'] = 'operator/seleksi/update/$1';
 $route['operator/soal-seleksi/detail/(:any)'] = 'operator/seleksi/detail/$1';
 $route['operator/soal-seleksi/detail/tambah_soal/(:any)'] = 'operator/seleksi/add_soal/$1';
+$route['operator/soal-seleksi/konfigurasi'] = 'operator/seleksi/konfigurasi';
 
 
 /* end home routing */

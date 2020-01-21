@@ -361,4 +361,46 @@ class Seleksi extends CI_controller
             return false;
         }
     }
+
+    public function konfigurasi(){
+        $data = [
+            'title' => 'Konfigurasi Tes Seleksi',
+            'tes' => $this->db->get('tes_seleksi')->result_array()
+        ];
+
+        $this->form_validation->set_rules('tes', 'Tes Seleksi', 'required', ['required' => '{field} tidak boleh kosong']);
+        $this->form_validation->set_rules('prodi[]', 'Program Studi', 'required', ['required' => '{field} tidak boleh kosong']);
+
+        if ($this->form_validation->run() == FALSE) {
+            getViews($data, 'v_operator/v_konfigurasi_tes');
+        }else{
+            $id_prodi = $this->input->post('prodi', true);
+
+            foreach ($id_prodi as $id) {
+                $data = [
+                    'id_program_studi' => $id,
+                    'id_tes_seleksi' => $this->input->post('tes', true)
+                ];
+
+                $insert = $this->db->insert('konfigurasi_tes_seleksi', $data);
+            }
+
+            if ($insert) {
+                $this->session->set_flashdata('msg_success', 'Selamat, Data Berhasil Dikonfigurasi');
+                redirect('operator/soal-seleksi/konfigurasi');
+            }else{
+                $this->session->set_flashdata('msg_success', 'Maaf, Data Gagal Dikonfigurasi');
+                redirect('operator/soal-seleksi/konfigurasi');
+            }
+        }
+    }
+
+    public function get_prodi(){
+        if(isset($_POST['id_tes'])){
+            $id_tes = $_POST['id_tes'];
+
+            $dataJalur = $this->m_seleksi->getTesKonfig($id_tes);
+            echo json_encode($dataJalur);
+        }
+    }
 }

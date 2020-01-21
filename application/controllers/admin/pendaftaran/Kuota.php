@@ -40,10 +40,10 @@ class Kuota extends CI_controller
 
             if ($insert) {
                 $this->session->set_flashdata('msg_success', 'Selamt, Data kouta pendaftaran berhasil ditambah');
-                redirect('admin/sekolah/kuota');
+                redirect('admin/pendaftaran/kuota');
             } else {
                 $this->session->set_flashdata('msg_failed', 'Maaf, Data kouta pendaftaran gagal ditambah');
-                redirect('admin/sekolah/kuota');
+                redirect('admin/pendaftaran/kuota');
             }
         }
     }
@@ -68,7 +68,7 @@ class Kuota extends CI_controller
 
             if ($this->form_validation->run() == FALSE) {
                 $this->session->set_flashdata('msg_failed', 'Maaf, Data tahun ajaran gagal diperbarui');
-                redirect('admin/sekolah/kuota');
+                redirect('admin/pendaftaran/kuota');
             } else {
                 $data = [
                     'id_program_studi' => $this->input->post('jurusan', true),
@@ -78,10 +78,10 @@ class Kuota extends CI_controller
 
                 if ($this->db->update('kouta_pendaftaran', $data, ['id_kouta_pendaftaran' => $id])) {
                     $this->session->set_flashdata('msg_success', 'Selamat, Data tahun ajaran berhasil diperbarui');
-                    redirect('admin/sekolah/kuota');
+                    redirect('admin/pendaftaran/kuota');
                 } else {
                     $this->session->set_flashdata('msg_failed', 'Maaf, Data tahun ajaran gagal diperbarui');
-                    redirect('admin/sekolah/kuota');
+                    redirect('admin/pendaftaran/kuota');
                 }
             }
         }

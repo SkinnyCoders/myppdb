@@ -9,7 +9,7 @@
                   </div><!-- /.col -->
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
-                          <li class="breadcrumb-item active">Dashboard Kepala Sekolah</li>
+                          <li class="breadcrumb-item active">Dashboard Peserta</li>
                       </ol>
                   </div><!-- /.col -->
               </div><!-- /.row -->
@@ -20,6 +20,45 @@
       <!-- Main content -->
       <div class="content">
           <div class="container-fluid">
+      
+            <?php if (!empty($status['status_kelulusan'])){ ?>
+            <div class="row">
+              <?php if ($status['status_kelulusan'] == 'lulus') { ?>
+              <div class="col-md-12">
+                <div class="callout callout-success">
+                  <h4>Selamat Anda diterima!</h4>
+
+                  <p>Silahkan melakukan daftar ulang dengan melunasi biaya daftar ulang, dengan datang langsung kesekolah serta membawa bukti bahwa peserta telah diterima untuk ditunjukan kepada panitia.</p>
+
+                  <button class="btn btn-sm btn-info">Download Bukti</button>
+                </div>
+              </div>
+
+             
+              <?php }else{ ?>
+              <div class="col-md-12">
+                <div class="callout callout-danger">
+                  <h4>Mohon maaf anda belum diterima!</h4>
+
+                  <p>Mohon maaf anda belum dapat diterima karena ada beberapa bersyaratan yang tidak terpenuhi.</p>
+                </div>
+              </div>
+              <?php } ?>
+            </div>
+          <?php }else{ ?>
+
+          <?php if ($pencadangan > 0) : ?>
+            <div class="row">
+               <div class="col-md-12">
+                <div class="callout callout-warning">
+                  <h4>Status anda saat ini sedang dicadangkan!</h4>
+
+                  <p>Dikarenakan kuota pendaftaran untuk program studi yang anda ambil sudah penuh, Anda akan otomatis terdaftar jika terdapat penambahan kuota atau terdapat peserta yang mengundurkan diri.</p>
+                </div>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php } ?>
               <div class="row my-3">
                   <div class="col-md-4">
                       <h5 class="font-weight-bold text-dark">Status Peserta</h5>

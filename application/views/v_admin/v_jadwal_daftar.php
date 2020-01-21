@@ -27,7 +27,7 @@
                      <div class="card">
                          <div class="card-header">
                              <h3 class="card-title">Tabel data Jadwal pendaftaran</h3>
-                             <a class="btn btn-sm btn-primary float-right" href="<?= base_url('admin/jadwal_pendaftaran/tambah') ?>"><i class="fa fa-plus"></i> Tambah Jadwal Pendaftaran</a>
+                             <a class="btn btn-sm btn-primary float-right" href="<?= base_url('admin/pendaftaran/jadwal/tambah') ?>"><i class="fa fa-plus"></i> Tambah Jadwal Pendaftaran</a>
                          </div>
                          <!-- /.card-header -->
                          <div class="card-body">
@@ -107,7 +107,7 @@
                  if (isConfirm.value) {
                      $.ajax({
                          type: "post",
-                         url: "<?= base_url() ?>admin/jadwal_pendaftaran/delete/" + dataId,
+                         url: "<?= base_url() ?>admin/pendaftaran/jadwal/delete/" + dataId,
                          data: {
                              'id_pengguna': dataId
                          },

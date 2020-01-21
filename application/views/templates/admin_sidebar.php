@@ -31,7 +31,7 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="<?= base_url('auth/logout') ?>" class="nav-link">Logout</a>
+      <a href="<?= base_url('auth/logout') ?>" class="nav-link"><i class="fas fa-arrow-circle-right nav-icon"></i> Logout</a>
     </li>
   </ul>
 </nav>
@@ -155,6 +155,96 @@
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-bars"></i>
+              <p>
+                Sekolah
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('admin/sekolah/profil') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-school"></i>
+                  <p>
+                    Profil Sekolah
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/sekolah/penghargaan') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-trophy"></i>
+                  <p>
+                    Penghargaan
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/sekolah/fasilitas') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-building"></i>
+                  <p>
+                    Fasilitas
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/sekolah/program_studi') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-graduation-cap"></i>
+                  <p>
+                    Program Studi
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- -->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-bars"></i>
+              <p>
+                Pendaftaran
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('admin/pendaftaran/kuota') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-cog"></i>
+                  <p>
+                    Kouta Pendaftaran
+                    <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/pendaftaran/jadwal') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-graduation-cap"></i>
+                  <p>
+                    Jadwal Pendaftaran
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/pendaftaran/jalur') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-graduation-cap"></i>
+                  <p>
+                    Jalur Pendaftaran
+                  </p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="<?= base_url('admin/pendaftaran/petunjuk') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-graduation-cap"></i>
+                  <p>
+                    Petunjuk Pendaftaran
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!---->
           <li class="nav-item">
             <a href="<?= base_url('admin/pengguna') ?>" class="nav-link">
               <i class="nav-icon fa fa-user-circle"></i>
@@ -164,30 +254,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/sekolah/profil') ?>" class="nav-link">
-              <i class="nav-icon fa fa-school"></i>
-              <p>
-                Profil Sekolah
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/sekolah/penghargaan') ?>" class="nav-link">
-              <i class="nav-icon fa fa-trophy"></i>
-              <p>
-                Penghargaan
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/sekolah/fasilitas') ?>" class="nav-link">
-              <i class="nav-icon fa fa-building"></i>
-              <p>
-                Fasilitas
-              </p>
-            </a>
-          </li>
+          
+          
           <li class="nav-item">
             <a href="<?= base_url('admin/sekolah/tahun_ajaran') ?>" class="nav-link">
               <i class="nav-icon fa fa-calendar"></i>
@@ -197,40 +265,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/sekolah/kuota') ?>" class="nav-link">
-              <i class="nav-icon fa fa-cog"></i>
-              <p>
-                Kouta Pendaftaran
-                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/sekolah/program_studi') ?>" class="nav-link">
-              <i class="nav-icon fa fa-graduation-cap"></i>
-              <p>
-                Program Studi
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/jalur_pendaftaran') ?>" class="nav-link">
-              <i class="nav-icon fa fa-graduation-cap"></i>
-              <p>
-                Jalur Pendaftaran
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?= base_url('admin/jadwal_pendaftaran') ?>" class="nav-link">
-              <i class="nav-icon fa fa-graduation-cap"></i>
-              <p>
-                Jadwal Pendaftaran
-              </p>
-            </a>
-          </li>
-
+        
         <?php } elseif ($this->session->userdata('role') == 3) { ?>
           <li class="nav-item">
             <a href="<?= base_url('admin/pengguna') ?>" class="nav-link">
@@ -248,6 +283,29 @@
                 Soal Seleksi
               </p>
             </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Setting Akun
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="<?=base_url('operator/setting/profil')?>" class="nav-link">
+                  <i class="far fa-user nav-icon"></i>
+                  <p>Profil</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="<?=base_url('operator/setting/password')?>" class="nav-link">
+                  <i class="fas fa-key nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+            </ul>
           </li>
         <?php } else { ?>
           <li class="nav-item">
@@ -303,6 +361,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?= base_url('peserta/seleksi') ?>" class="nav-link">
+              <i class="nav-icon fa fa-exclamation-circle"></i>
+              <p>
+                Cabut Berkas
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
@@ -313,14 +379,20 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-user-o nav-icon"></i>
+              <a href="<?=base_url('peserta/setting/profil')?>" class="nav-link">
+                  <i class="far fa-user nav-icon"></i>
                   <p>Profil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('admin/pengguna') ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+              <a href="<?=base_url('peserta/setting/password')?>" class="nav-link">
+                  <i class="fas fa-key nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('auth/logout') ?>" class="nav-link">
+                  <i class="fas fa-arrow-circle-right nav-icon"></i>
                   <p>Keluar</p>
                 </a>
               </li>

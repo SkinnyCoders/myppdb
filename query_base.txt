@@ -1,0 +1,14 @@
+//query untuk cek total pendaftar selain yang pencabutan
+SELECT COUNT(`id_pendaftaran`) FROM `pendaftaran` WHERE NOT EXISTS (SELECT `id_pendaftaran` FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran);
+
+//query total pendaftar dengan tahun dan program studi
+SELECT COUNT(id_pendaftaran) FROM `pendaftaran` WHERE `id_tahun_ajaran` = AND `id_program_studi` =
+
+SELECT * FROM program_studi WHERE NOT EXISTS (SELECT * FROM jalur_prodi WHERE jalur_prodi.id_prodi=program_studi.id_program_studi AND jalur_prodi.id_jalur=2)
+
+
+//cek kuota pendaftaran jika sudah penuh maka peserta yang daftar dimasukan ke pencadangan
+//dan jika ada yang melakukan pencabutan maka siswa yang dipencadangan otomatis masuk atau dihapus dari table pencadangan
+
+
+//konfigurasi jalur pendaftaran untuk prodi apa

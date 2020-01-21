@@ -5,6 +5,8 @@ class Pendaftaran extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+
+		$this->load->model('m_pendaftaran');
 	}
 
 	public function petunjuk(){
@@ -12,7 +14,11 @@ class Pendaftaran extends CI_Controller {
 	}
 
 	public function jalur(){
-		$this->load->view('v_home/v_jalur_pendaftaran');
+		$data = [
+			'jalur' => $this->m_pendaftaran->getJalurView()
+		];
+
+		$this->load->view('v_home/v_jalur_pendaftaran', $data);
 	}
 
 	public function biaya(){

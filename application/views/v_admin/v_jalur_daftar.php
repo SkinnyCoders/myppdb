@@ -27,7 +27,8 @@
                      <div class="card">
                          <div class="card-header">
                              <h3 class="card-title">Tabel data jalur pendaftaran</h3>
-                             <a class="btn btn-sm btn-primary float-right" href="<?= base_url('admin/jalur_pendaftaran/tambah') ?>"><i class="fa fa-plus"></i> Tambah Jalur Pendaftaran</a>
+                             <a class="btn btn-sm btn-primary float-right ml-3" href="<?= base_url('admin/pendaftaran/jalur/tambah') ?>"><i class="fa fa-plus"></i> Tambah Jalur Pendaftaran</a>
+                             <a class="btn btn-sm btn-primary float-right" href="<?= base_url('admin/pendaftaran/jalur/konfigurasi') ?>"><i class="fa fa-cog"></i> Konfigurasi Jalur Prodi</a>
                          </div>
                          <!-- /.card-header -->
                          <div class="card-body">
@@ -35,7 +36,7 @@
                                  <thead>
                                      <tr>
                                          <th class="text-nowrap" style="width: 5%">No</th>
-                                         <th class="text-nowrap">Jalur Pendaftaran</th>
+                                         <th class="text-nowrap">Nama Jalur</th>
                                          <th class="text-nowrap">Keterangan</th>
                                          <th class="text-nowrap">Persyaratan</th>
                                          <th style="width: 12%">Aksi</th>
@@ -60,7 +61,7 @@
                                                      <?php endforeach; ?>
                                                  </ul>
                                              </td>
-                                             <td><a href="<?= base_url('admin/jalur_pendaftaran/ubah/' . $j['id_jalur_pendaftaran']) ?>" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" id="<?= $j['id_jalur_pendaftaran'] ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a></td>
+                                             <td><a href="<?= base_url('admin/pendaftaran/jalur/ubah/' . $j['id_jalur_pendaftaran']) ?>" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" id="<?= $j['id_jalur_pendaftaran'] ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a></td>
                                          </tr>
                                      <?php endforeach; ?>
                                  </tbody>
@@ -112,7 +113,7 @@
                  if (isConfirm.value) {
                      $.ajax({
                          type: "post",
-                         url: "<?= base_url() ?>admin/jalur_pendaftaran/delete/" + dataId,
+                         url: "<?= base_url() ?>admin/pendaftaran/jalur/delete/" + dataId,
                          data: {
                              'id_pengguna': dataId
                          },
