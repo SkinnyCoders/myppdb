@@ -101,7 +101,7 @@
         <div id="collapseInformasi" class="collapse" aria-labelledby="headingInformasi" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Informasi Kami:</h6>
-            <a class="collapse-item tombol" id="pengumuman">Pengumuman</a>
+            <a class="collapse-item tombol" id="pengumuman">Informasi</a>
             <a class="collapse-item tombol" id="faq">FAQ</a>
             </div>
         </div>

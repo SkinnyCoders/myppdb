@@ -111,10 +111,8 @@ if (!empty($pilih_jurusan['id_program_studi'])) {
           	<div class="col-md-6">
           		<div class="form-group">
 		            <label for="jalur">Jalur Pendaftaran <span class="text-danger">*</span></label>
-		            <select class="form-control" name="jalur" id="jalur">
-		            	<?php foreach ($jalur as $lur) : ?>
-		            		<option value="<?=$lur['id_jalur_pendaftaran']?>"><?=$lur['nama_jalur_pendaftaran']?></option>
-		            	<?php endforeach; ?>
+		            <select class="form-control jal" name="jalur" id="jalur">
+		            	
 		            </select>
 		            <small class="text-danger"><?= form_error('jalur') ?></small>
 		        </div>
@@ -204,14 +202,12 @@ if (!empty($pilih_jurusan['id_program_studi'])) {
           </div>
           <!-- /.col -->
         </div>
+
       </form>
 
-      <!-- <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+      <p class="mb-0 mt-3">
+        Jika sudah mendaftar silahkan <a href="<?=base_url()?>?p=login" class="text-center">login disini</a>
       </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p> -->
     </div>
     <!-- /.login-card-body -->
   </div>
@@ -268,6 +264,51 @@ $(function() {
     }
     ?>
 });
+</script>
+<script>
+	$(document).ready(function(){
+		var prodi = $('#jurusan').val();
+
+		$.ajax({
+        type : "POST",
+        url : "<?=base_url('c_home/registrasi/getJalur')?>",
+        data : {'id_prodi' : prodi},
+        async : false,
+        dataType : "json",
+        success : function(data){
+          var html = '';
+          var i;
+
+          for(i=0; i<data.length; i++){
+          html += '<option value="'+data[i].id_jalur_pendaftaran+'">'+data[i].nama_jalur_pendaftaran+'</option>';
+          }
+              console.log(html);
+              $(".jal").html(html);
+          }
+      	})
+	});
+
+	$('#jurusan').on('change', function(){
+		var prodi = $('#jurusan').val();
+
+		$.ajax({
+        type : "POST",
+        url : "<?=base_url('c_home/registrasi/getJalur')?>",
+        data : {'id_prodi' : prodi},
+        async : false,
+        dataType : "json",
+        success : function(data){
+          var html = '';
+          var i;
+
+          for(i=0; i<data.length; i++){
+          html += '<option value="'+data[i].id_jalur_pendaftaran+'">'+data[i].nama_jalur_pendaftaran+'</option>';
+          }
+              console.log(html);
+              $(".jal").html(html);
+          }
+      	})
+	})
 </script>
 
 </body>

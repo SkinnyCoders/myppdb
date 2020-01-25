@@ -13,7 +13,8 @@ class Informasi extends CI_controller
 	}
 
 	public function faq(){
-		$this->load->view('v_home/v_home_faq');
+		$data['faq'] = $this->db->get('faq')->result_array();
+		$this->load->view('v_home/v_home_faq', $data);
 	}
 
 	public function pengumuman(){

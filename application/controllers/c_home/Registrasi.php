@@ -11,6 +11,7 @@ class Registrasi extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('m_pendaftaran');
+		$this->load->helper('cektahun');
 	}
 
 	public function index(){
@@ -40,7 +41,7 @@ class Registrasi extends CI_Controller
 		}else{
 			//get tahun ajaran
 			$tahun_now = date('Y');
-			$tahun_ajaran = $this->db->get_where('tahun_ajaran', ['tahun_mulai' => $tahun_now])->row_array();
+			$tahun_ajaran = $this->db->get_where('tahun_ajaran', ['tahun_mulai' => getTahun()])->row_array();
 			$id_tahun_ajaran = $tahun_ajaran['id_tahun_ajaran'];
 
 			$tgl_lahir = DateTime::createFromFormat('m/d/Y', $this->input->post('tgl_lahir'))->format('Y-m-d');
@@ -176,6 +177,14 @@ class Registrasi extends CI_Controller
 		}else{
 			return true;
 		}
+	}
+
+	public function getJalur(){
+		$id_prodi = $_POST['id_prodi'];
+
+		$jalur = $this->m_pendaftaran->jalurProdi($id_prodi);
+
+		echo json_encode($jalur);
 	}
 }
  ?>

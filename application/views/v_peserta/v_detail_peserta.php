@@ -9,7 +9,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item active">Detail Peserta</li>
+              <li class="breadcrumb-item active">No.Pendaftaran : 20/1/0005</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

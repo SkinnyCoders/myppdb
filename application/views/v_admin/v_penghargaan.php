@@ -78,7 +78,7 @@
                  <div class="row">
                    <div class="col-md-12">
                      <!-- form start -->
-                     <form action="<?= base_url('c_admin/admin/update_penghargaan') ?>" method="post" role="form" enctype="multipart/form-data">
+                     <form action="<?= base_url('admin/sekolah/penghargaan/update') ?>" method="post" role="form" enctype="multipart/form-data">
                        <div class="card-body">
                          <div class="row">
                            <div class="col-md-8">

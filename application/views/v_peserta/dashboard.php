@@ -20,17 +20,29 @@
       <!-- Main content -->
       <div class="content">
           <div class="container-fluid">
+
+            <?php if (!empty($cabut)) { ?>
+              <div class="row">
+               <div class="col-md-12">
+                <div class="callout callout-warning">
+                  <h4> <i style="color: orange;" class="fa fa-exclamation-triangle"></i> Anda telah melakukan pencabutan berkas!</h4>
+
+                  <p>Anda telah melakukan pencabutan berkas, yang berarti otomatis anda telah mengundurkan dari dari proses penerimaan peserta didik baru SMK Muhammadiyah Mlati. klik <a style="color: orange" href="<?=base_url('peserta/cabut_berkas')?>">disini</a> untuk membatalkan proses pencabutan.</p>
+                </div>
+              </div>
+            </div>
+            <?php }else{ ?>
       
             <?php if (!empty($status['status_kelulusan'])){ ?>
             <div class="row">
               <?php if ($status['status_kelulusan'] == 'lulus') { ?>
               <div class="col-md-12">
                 <div class="callout callout-success">
-                  <h4>Selamat Anda diterima!</h4>
+                  <h4><i style="color: green;" class="fa fa-check"></i> Selamat Anda diterima!</h4>
 
                   <p>Silahkan melakukan daftar ulang dengan melunasi biaya daftar ulang, dengan datang langsung kesekolah serta membawa bukti bahwa peserta telah diterima untuk ditunjukan kepada panitia.</p>
 
-                  <button class="btn btn-sm btn-info">Download Bukti</button>
+                  <a href="<?=base_url('peserta/generate_kartu/pdf')?>" class="btn btn-sm btn-info">Download Bukti</a>
                 </div>
               </div>
 
@@ -59,6 +71,8 @@
             </div>
           <?php endif; ?>
           <?php } ?>
+        <?php } ?>
+        <!-- end if pencabutan -->
               <div class="row my-3">
                   <div class="col-md-4">
                       <h5 class="font-weight-bold text-dark">Status Peserta</h5>
@@ -103,7 +117,23 @@
                           </li>
                           <li class="list-group-item">
                               Tes Seleksi
+                              <?php
+
+                              foreach ($seleksi as $s) {
+                                $tes = in_array('false', $s);
+                              }
+                              
+                              if (!empty($seleksi)) {
+                                if ($tes == false) {
+                                   echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                                 }else{
+                                  echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
+                                 } ?>
+                              <?php
+                              }else{
+                              ?>
                               <i class="fas fa-lg fa-history text-secondary float-right my-1"></i>
+                              <?php } ?>
                           </li>
 
                       </ul>
@@ -113,20 +143,59 @@
                       <ul class="list-group">
                           <li class="list-group-item">
                               Verifikasi Data
-                              <i class="fas fa-lg fa-check text-success float-right my-1"></i>
+                              <?php if ($pendaftaran['status_verifikasi_data'] !== 'belum') {
+                                echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                              }else{
+                                echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
+                              }?>
+                              
 
                           </li>
                           <li class="list-group-item">
                               Verifikasi Berkas
-                              <i class="fas fa-lg fa-history text-secondary float-right my-1"></i>
+                               <?php if ($pendaftaran['status_verifikasi_berkas'] !== 'belum') {
+                                echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                              }else{
+                                echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
+                              }?>
                           </li>
                           <li class="list-group-item">
                               Kelulusan
-                              <i class="fas fa-lg fa-history text-secondary float-right my-1"></i>
+                              <?php 
+                              if ($status['status_kelulusan'] !== NULL) {
+                                if ($status['status_kelulusan'] == 'lulus') {
+                                  echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                                }else{
+                                  echo '<i class="fas fa-lg fa-times text-danger float-right my-1"></i>';
+                                }
+                              }else{
+                                echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
+                              }
+                               ?>
+                              
                           </li>
                       </ul>
                   </div>
 
+              </div>
+              <div class="row my-3 mt-4">
+                <div class="col-md-12">
+                    <h5 class="font-weight-bold text-dark">Jadwal Penting</h5>
+                    <hr>
+                    <ul class="list-group mb-3">
+                      <?php foreach ($data_jadwal as $jadwal) : 
+                        $tgl_mulai = DateTime::createFromFormat('Y-m-d', $jadwal['tgl_mulai'])->format('d F Y');
+                        $tgl_selesai = DateTime::createFromFormat('Y-m-d', $jadwal['tgl_selesai'])->format('d F Y');
+
+                      ?>
+                          <li class="list-group-item">
+                              <strong><?=ucwords($jadwal['nama_jadwal'])?></strong>
+                              <span>:</span>
+                              <span class="float-right my-1"><?=$tgl_mulai?> s/d <?=$tgl_selesai?></span>
+                          </li>
+                      <?php endforeach; ?>
+                      </ul>
+                </div>
               </div>
           </div><!-- /.container-fluid -->
       </div>

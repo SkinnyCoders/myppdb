@@ -8,24 +8,24 @@ class Setting extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		getAuth(4);
 	}
 
 	public function profil(){
-		$id_peserta = 4;
+		$id_peserta = $this->session->userdata('id_peserta');
 
 		$data = [
 			'title' => 'Setting Akun Peserta',
 			'data_peserta' => $this->db->get_where('peserta', ['id_peserta' => $id_peserta])->row_array()
 		];
 
-		$this->form_validation->set_rules('username', 'Username', 'required|trim', ['required' => '{field} tidak boleh kosong']);
+		// $this->form_validation->set_rules('username', 'Username', 'required|trim', ['required' => '{field} tidak boleh kosong']);
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|callback_cekEmail|valid_email', ['required' => '{field} tidak boleh kosong', 'cekEmail' => '{field} sudah digunakan']);
 
 		if ($this->form_validation->run() == FALSE) {
 			getViews($data, 'v_peserta/v_setting_profil');
 		}else{
 			$data = [
-				'username_peserta' => $this->input->post('username', true),
 				'email_peserta' => $this->input->post('email', true)
 			];
 
@@ -43,8 +43,7 @@ class Setting extends CI_Controller
 	}
 
 	public function password(){
-		$id_peserta = 4;
-
+		$id_peserta = $this->session->userdata('id_peserta');	
 
 		$data = [
 			'title' => 'Perbarui Password'
@@ -77,7 +76,7 @@ class Setting extends CI_Controller
 
 	public function cekPass($str){
 		//get password lama
-		$passUser = $this->db->get_where('peserta', ['id_peserta' => 4])->row_array();
+		$passUser = $this->db->get_where('peserta', ['id_peserta' => $this->session->userdata('id_peserta')])->row_array();
 
 		 if (password_verify($str, $passUser['password_peserta'])) {
 		 	return TRUE;

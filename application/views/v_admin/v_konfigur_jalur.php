@@ -38,7 +38,7 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                       <label >Jalur Pendaftaran</label>
-                                      <select name="jalur" id="jalur" class="form-control select">
+                                      <select name="jalur" id="jalur" style="width: 100%" class="form-control select2bs4">
                                         <option value="">Pilih Jalur</option>
                                         <?php 
                                         if (!empty($jalur)) {
@@ -54,7 +54,7 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                       <label >Program Studi (Jurusan)</label>
-                                      <select name="prodi[]" id="prodi_ampas" class="form-control select2" multiple="multiple" data-placeholder="Pilih Program Studi">
+                                      <select name="prodi[]" id="prodi_ampas" class="form-control select2bs4" multiple="multiple" data-placeholder="Pilih Program Studi">
                                         
                                       </select>
                                       <small class="text-danger mt-2"><?= form_error('prodi') ?></small>
@@ -78,12 +78,13 @@
 
   <?php $this->load->view('templates/cdn_admin'); ?>
 
-  <script src="<?=base_url('assets/plugins/select2/js/select2.full.min.js')?>"></script>
-
   <script>
-    $(function(){
-      //Initialize Select2 Elements
+    //Initialize Select2 Elements
     $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
     })
   </script>
 

@@ -102,10 +102,10 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-8">
-                    <canvas id="pieChart" style="height:230px; min-height:420px"></canvas>
+                    <canvas id="pieChart" style="height:230px; min-height:300px"></canvas>
                   </div>
                   <div class="col-md-4">
-                    <canvas id="pieChart1" style="height:230px; min-height:420px"></canvas>
+                    <canvas id="pieChart2" style="height:230px;"></canvas>
                   </div>
                 </div>
 
@@ -159,6 +159,42 @@
         datasets: [{
           data: [1000, 500, 100, 380, 20],
           backgroundColor: ['#00c0ef', '#00a65a', '#f56954', '#f39c12', '#eaeaea'],
+        }]
+      }
+      var pieOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+      }
+      //Create pie or douhnut chart
+      // You can switch between pie and douhnut using the method below.
+      var pieChart = new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: donutData,
+        options: pieOptions
+      })
+    })
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      /* ChartJS
+       * -------
+       * Here we will create a few charts using ChartJS
+       */
+
+      //-------------
+      //- PIE CHART -
+      //-------------
+      // Get context with jQuery - using jQuery's .get() method.
+      var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
+      var donutData = {
+        labels: [
+          'Laki - Laki',
+          'Perempuan'
+        ],
+        datasets: [{
+          data: [1000, 500],
+          backgroundColor: ['#00c0ef', '#00a65a'],
         }]
       }
       var pieOptions = {

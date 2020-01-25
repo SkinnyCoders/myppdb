@@ -104,9 +104,10 @@ class Program_studi extends CI_controller
                 redirect('admin/sekolah/program_studi');
             } else {
                 $id_program = $_POST['id'];
+                $dataJurusan = $this->db->get_where('program_studi', ['id_program_studi' => $id_program])->row_array();
 
                 if (!empty($_FILES['foto']['name'])) {
-                    $gambar = uploadImage('foto', '.assets/img/uploads/', '');
+                    $gambar = uploadImage('foto', './assets/img/uploads/', '');
                     if ($dataJurusan['foto_program_studi'] !== 'default-image.png') {
                         unlink('assets/img/uploads/' . $dataJurusan['foto_program_studi']);
                     }

@@ -88,11 +88,24 @@ class Auth extends CI_controller
         if ($update) {
             $this->session->unset_userdata('is_login');
             $this->session->unset_userdata('nama');
+            $this->session->unset_userdata('foto');
+            $this->session->unset_userdata('role');
+            $this->session->unset_userdata('id');
             $this->session->set_flashdata('msg_success', 'Selamat, Anda berhasil logut');
             redirect('admin/login');
         } else {
             $this->session->set_flashdata('msg_failed', 'Gagal Logout!');
             redirect('admin');
         }
+    }
+
+    public function logout_peserta()
+    {
+
+        //update login status
+            $this->session->unset_userdata('is_login');
+            $this->session->unset_userdata('nama');
+            $this->session->set_flashdata('msg_success', 'Selamat, Anda berhasil logut');
+            redirect('?p=login');
     }
 }

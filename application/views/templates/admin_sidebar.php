@@ -31,7 +31,11 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <li class="nav-item d-none d-sm-inline-block">
+    <?php if ($this->session->userdata('role') == 4) { ?>
+        <a href="<?= base_url('auth/logout_peserta') ?>" class="nav-link"><i class="fas fa-arrow-circle-right nav-icon"></i> Logout</a>
+    <?php }else{ ?>
       <a href="<?= base_url('auth/logout') ?>" class="nav-link"><i class="fas fa-arrow-circle-right nav-icon"></i> Logout</a>
+    <?php } ?>
     </li>
   </ul>
 </nav>
@@ -48,7 +52,11 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="<?= base_url('assets/img/user/' . $this->session->userdata('foto')) ?>" class="img-circle elevation-2 mt-2" alt="User Image">
+        <?php if (!empty($this->session->userdata('foto'))) { ?>
+          <img src="<?= base_url('assets/img/user/' . $this->session->userdata('foto')) ?>" class="img-circle elevation-2 mt-2" alt="User Image">
+        <?php }else{ ?>
+          <img src="<?= base_url('assets/img/user/default.png') ?>" class="img-circle elevation-2 mt-2" alt="User Image">
+        <?php } ?>
       </div>
       <div class="info">
         <h5 class="text-nowrap d-block text-header text-white"><?= ucwords($this->session->userdata('nama')) ?></h5>
@@ -196,6 +204,7 @@
                   </p>
                 </a>
               </li>
+              
             </ul>
           </li>
           <!-- -->
@@ -242,6 +251,14 @@
                   </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/pendaftaran/biaya_masuk') ?>" class="nav-link">
+                  <i class="nav-icon fa fa-graduation-cap"></i>
+                  <p>
+                    Biaya Masuk
+                  </p>
+                </a>
+              </li>
             </ul>
           </li>
           <!---->
@@ -265,22 +282,82 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="<?= base_url('admin/informasi') ?>" class="nav-link">
+              <i class="nav-icon fa fa-calendar"></i>
+              <p>
+                Informasi
+                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?= base_url('admin/faq') ?>" class="nav-link">
+              <i class="nav-icon fa fa-calendar"></i>
+              <p>
+                FAQ
+                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
+              </p>
+            </a>
+          </li>
         
         <?php } elseif ($this->session->userdata('role') == 3) { ?>
           <li class="nav-item">
-            <a href="<?= base_url('admin/pengguna') ?>" class="nav-link">
-              <i class="nav-icon fa fa-user-circle"></i>
+            <a href="<?= base_url('operator/dashboard') ?>" class="nav-link">
+              <i class="nav-icon fa fa-home"></i>
               <p>
-                Pengguna 2
+                Dashboard
                 <span class="right badge badge-danger">Hot</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="<?= base_url('operator/soal-seleksi') ?>" class="nav-link">
-              <i class="nav-icon fa fa-check"></i>
+              <i class="nav-icon fa fa-circle"></i>
               <p>
                 Soal Seleksi
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('operator/pendaftar/list') ?>" class="nav-link">
+              <i class="nav-icon fa fa-users"></i>
+              <p>
+                Pendaftar
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('operator/verifikasi/data') ?>" class="nav-link">
+              <i class="nav-icon fa fa-hourglass-half"></i>
+              <p>
+                Verifikasi Data
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('operator/verifikasi/berkas') ?>" class="nav-link">
+              <i class="nav-icon fa fa-file"></i>
+              <p>
+                Verifikasi Berkas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('operator/pendaftar/penerimaan') ?>" class="nav-link">
+              <i class="nav-icon fa fa-check"></i>
+              <p>
+                Penerimaan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('operator/daftar_ulang') ?>" class="nav-link">
+              <i class="nav-icon fa fa-undo"></i>
+              <p>
+                Daftar Ulang
               </p>
             </a>
           </li>
@@ -362,7 +439,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('peserta/seleksi') ?>" class="nav-link">
+            <a href="<?= base_url('peserta/cabut_berkas') ?>" class="nav-link">
               <i class="nav-icon fa fa-exclamation-circle"></i>
               <p>
                 Cabut Berkas
@@ -391,7 +468,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('auth/logout') ?>" class="nav-link">
+                <a href="<?= base_url('auth/logout_peserta') ?>" class="nav-link">
                   <i class="fas fa-arrow-circle-right nav-icon"></i>
                   <p>Keluar</p>
                 </a>

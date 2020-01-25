@@ -10,16 +10,18 @@ class Data_diri extends CI_controller
     {
         parent::__construct();
         //login cek and authentication
-        // getAuth(1);
+        getAuth(4);
         $this->load->model('m_peserta');
     }
 
     public function index()
     {
+        $id_peserta = $this->session->userdata('id_peserta');
         $data = [
             'title' => 'Data Diri',
-            'data_diri' => $this->m_peserta->getDataDiri(4)
+            'data_diri' => $this->m_peserta->getDataDiri($id_peserta)
         ];
+
 
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim', ['required' => 'Nama tidak boleh kosong']);
         $this->form_validation->set_rules('nisn', 'NISN', 'required|trim|numeric', ['required' => '{field} tidak boleh kosong', 'numeric' => 'NISN harus berupa angka', 'CekNisn' => '{field} sudah digunakan']);

@@ -72,7 +72,7 @@ $route['faq'] = 'c_home/informasi/faq';
 $route['pengumuman'] = 'c_home/informasi/pengumuman';
 
 //login
-$route['login'] = 'c_peserta/peserta/login';
+$route['login'] = 'c_home/login';
 
 //login admin
 $route['admin/login'] = 'auth/login';
@@ -85,6 +85,7 @@ $route['registrasi'] = 'c_home/registrasi';
 $route['admin'] = 'admin/dashboard';
 $route['operator'] = 'operator/dashboard';
 $route['kepsek'] = 'kepsek/dashboard';
+$route['peserta'] = 'peserta/dashboard';
 
 //seleksi 
 $route['operator/soal-seleksi'] = 'operator/seleksi';

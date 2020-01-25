@@ -10,13 +10,13 @@ class Sekolah_asal extends CI_controller
     {
         parent::__construct();
         //login cek and authentication
-        // getAuth(1);
+        getAuth(4);
         $this->load->model('m_peserta');
     }
 
     public function index()
     {
-        $id_peserta = 4;
+        $id_peserta = $this->session->userdata('id_peserta');
         $data = [
             'title' => 'Data Sekolah Asal',
             'data_sekolah' => $this->m_peserta->getDataSekolah($id_peserta)

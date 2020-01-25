@@ -7,10 +7,12 @@ class Pendaftaran extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('m_pendaftaran');
+		$this->load->helper('cektahun');
 	}
 
 	public function petunjuk(){
-		echo "string";
+		$data['petunjuk'] = $this->db->get('petunjuk_pendaftaran')->row_array();
+		$this->load->view('v_home/v_petunjuk', $data);
 	}
 
 	public function jalur(){
@@ -22,7 +24,11 @@ class Pendaftaran extends CI_Controller {
 	}
 
 	public function biaya(){
-		echo "Biaya";
+		$data['biaya'] = $this->m_pendaftaran->getBiaya();
+		$data['prodi'] = $this->m_pendaftaran->getJurusan();
+		$data['id_tahun'] = $this->db->get_where('tahun_ajaran', ['tahun_mulai' => getTahun()])->row_array();
+		
+		$this->load->view('v_home/v_biaya', $data);
 	}
 
 	public function beasiswa(){

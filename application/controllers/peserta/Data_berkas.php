@@ -10,27 +10,37 @@ class Data_berkas extends CI_controller
     {
         parent::__construct();
         //login cek and authentication
-        // getAuth(1);
+        getAuth(4);
         $this->load->model('m_peserta');
     }
 
     public function index()
     {
-        $id_peserta = 4;
+        $id_peserta = $this->session->userdata('id_peserta');
         $data['title'] = 'Data Berkas';
         $data['berkas'] = $this->m_peserta->getBerkas($id_peserta);
 
-        $data_berkas = [
-            $data['berkas']['ijazah_terakhir'],
-            $data['berkas']['skhun'],
-            $data['berkas']['kartu_keluarga'],
-            $data['berkas']['keterangan_sehat'],
-            $data['berkas']['pas_foto']
-        ];
+        $pendaftaran = $this->m_peserta->getPendaftaran($this->session->userdata('id_peserta'));
+        $id_pendaftaran = $pendaftaran['id_pendaftaran'];
+        $cekCabut = $this->db->get_where('pencabutan', ['id_pendaftaran' => $id_pendaftaran])->row_array();
 
         getViews($data, 'v_peserta/v_data_berkas');
 
         if (isset($_POST['uploads'])) {
+            if (!empty($cekCabut)) {
+                $this->session->set_flashdata('msg_failed', 'Maaf, Anda telah melakukan pencabutan berkas, Harap batalkan terlebih dahulu');
+                redirect('peserta/data_berkas');
+                return false;
+            }
+        
+            $data_berkas = [
+                $data['berkas']['ijazah_terakhir'],
+                $data['berkas']['skhun'],
+                $data['berkas']['kartu_keluarga'],
+                $data['berkas']['keterangan_sehat'],
+                $data['berkas']['pas_foto']
+            ];
+            
             $hitung = $_FILES['file']['name'];
             for ($i = 0; $i < count($hitung); $i++) {
                 if (!empty($_FILES['file']['name'][$i])) {

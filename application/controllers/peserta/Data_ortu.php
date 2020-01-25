@@ -10,16 +10,16 @@ class Data_ortu extends CI_controller
     {
         parent::__construct();
         //login cek and authentication
-        // getAuth(1);
+        getAuth(4);
         $this->load->model('m_peserta');
     }
 
     public function index()
     {
-        $id_peserta = 4;
+        $id_peserta = $this->session->userdata('id_peserta');
         $data = [
             'title' => 'Data Orang Tua',
-            'data_ortu' => $this->m_peserta->getDataOrtu(4)
+            'data_ortu' => $this->m_peserta->getDataOrtu($id_peserta)
         ];
 
         $this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'required|trim', ['required' => '{field} tidak boleh kosong']);
@@ -45,7 +45,7 @@ class Data_ortu extends CI_controller
                 'no_hp_ortu_ibu' => $this->input->post('telp_ibu', true)
             ];
 
-            if($this->m_peserta->getDataOrtu(4) != NULL){
+            if($this->m_peserta->getDataOrtu($id_peserta) != NULL){
                 $update = $this->db->update('data_ortu', $data, ['id_ortu' => $this->input->post('id')]);
 
                 if($update){

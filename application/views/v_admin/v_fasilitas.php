@@ -76,7 +76,7 @@
                    <div class="col-md-12">
                      <!-- form start -->
                      <form action="<?= base_url('admin/sekolah/fasilitas/update') ?>" method="post" role="form" enctype="multipart/form-data">
-                       <div class="card-body">
+                       
                          <div class="form-group">
                            <label for="nama">Nama Fasilitas</label>
                            <input type="text" class="form-control nama2" name="nama" id="nama2" placeholder="Nama Penghargaan" value="">
@@ -86,9 +86,7 @@
                          </div>
                          <div class="form-group">
                            <label for="des">Deskripsi Fasilitas</label>
-                           <textarea id="des" name="deskripsi" class="form-control des" style="height: 150px;" placeholder="Masukkan Deskripsi"><?php if (!empty($profile)) {
-                                                                                                                                                  echo $profile['visi_sekolah'];
-                                                                                                                                                } ?></textarea>
+                           <textarea id="des" name="deskripsi" class="form-control des" style="height: 150px;" placeholder="Masukkan Deskripsi"></textarea>
                            <small class="text-danger mt-2"><?= form_error('deskripsi') ?></small>
                          </div>
                          <div class="form-group">
@@ -105,12 +103,6 @@
                              <img class="mt-2 mb-2 img" style="width: 100%; max-height: 300px;" src="" id="output">
                            </div>
                          </div>
-
-                         <!--  <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                          </div> -->
-                       </div>
                        <!-- /.card-body -->
                    </div>
                  </div>
@@ -164,7 +156,7 @@
      var dataId = this.id;
      $.ajax({
        type: "post",
-       url: "<?= base_url('c_admin/fasilitas/update_fasilitas') ?>",
+       url: "<?= base_url('admin/sekolah/fasilitas/update') ?>",
        data: {
          'id': dataId
        },

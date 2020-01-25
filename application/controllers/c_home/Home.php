@@ -9,13 +9,7 @@ class Home extends CI_Controller {
 
 	public function index(){
 
-		$this->form_validation->set_rules('test', 'Test', 'required');
-
-		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('v_home/v_test');
-		}else{
-			echo "string";
-		}
+		echo "string";
 
 		
 

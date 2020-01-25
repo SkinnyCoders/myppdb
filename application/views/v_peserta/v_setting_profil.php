@@ -33,13 +33,13 @@
                           <!-- form start -->
                           <form action="" method="post" role="form" enctype="multipart/form-data">
                               <div class="card-body">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                   <label for="misi">Username <span class="text-danger">*</span></label>
                                   <input type="text" name="username" class="form-control" placeholder="Username Peserta" value="<?php if(!empty($data_peserta)){
                                     echo $data_peserta['username_peserta'];
                                   } ?>">
                                   <small class="text-danger mt-2"><?= form_error('username') ?></small>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                   <label for="misi">Email <span class="text-danger">*</span></label>
                                   <input type="text" name="email" class="form-control" placeholder="Email Peserta" value="<?php if(!empty($data_peserta)){

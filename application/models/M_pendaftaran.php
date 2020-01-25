@@ -68,4 +68,56 @@ class M_pendaftaran extends CI_Model
     public function getKuota($id_ta, $id_prodi){
         return $this->db->query("SELECT `jumlah` FROM `kouta_pendaftaran` WHERE `id_program_studi` = $id_prodi AND `id_tahun_ajaran` = $id_ta")->row_array();
     }
+
+    public function jalurProdi($id){
+        $this->db->select('id_jalur_pendaftaran,nama_jalur_pendaftaran');
+        $this->db->join('jalur_prodi', 'jalur_prodi.id_jalur=jalur_pendaftaran.id_jalur_pendaftaran');
+        return $this->db->get_where('jalur_pendaftaran', ['jalur_prodi.id_prodi' => $id])->result_array();
+    }
+
+    public function getTotalGender(){
+        $this->db->select('*');
+        $this->db->join('data_diri', 'data_diri.id_data_diri=peserta.id_data_diri');
+        $totalLaki = $this->db->get_where('peserta',['data_diri.jenis_kelamin' => 'L'])->num_rows();
+
+        $this->db->select('*');
+        $this->db->join('data_diri', 'data_diri.id_data_diri=peserta.id_data_diri');
+        $totalPerempuan = $this->db->get_where('peserta',['data_diri.jenis_kelamin' => 'P'])->num_rows();
+
+        return [$totalLaki,$totalPerempuan];
+
+    }
+
+    public function getBiaya(){
+        $this->db->select('id_biaya_masuk,jenis_biaya_masuk,jumlah_biaya_masuk,tahun_mulai, tahun_akhir, nama_program_studi, nama_jalur_pendaftaran');
+        $this->db->join('tahun_ajaran' ,' tahun_ajaran.id_tahun_ajaran=biaya_masuk.id_tahun_ajaran');
+        $this->db->join('program_studi', 'program_studi.id_program_studi=biaya_masuk.id_program_studi');
+        $this->db->join('jalur_pendaftaran','jalur_pendaftaran.id_jalur_pendaftaran=biaya_masuk.id_jalur_pendaftaran');
+        return $this->db->get('biaya_masuk')->result_array();
+    }
+
+    public function getBiayaView($id_prodi){
+        $this->db->select('jenis_biaya_masuk,jumlah_biaya_masuk,biaya_masuk.id_jalur_pendaftaran, nama_jalur_pendaftaran');
+        $this->db->join('tahun_ajaran' ,' tahun_ajaran.id_tahun_ajaran=biaya_masuk.id_tahun_ajaran');
+        $this->db->join('program_studi', 'program_studi.id_program_studi=biaya_masuk.id_program_studi');
+        $this->db->join('jalur_pendaftaran','jalur_pendaftaran.id_jalur_pendaftaran=biaya_masuk.id_jalur_pendaftaran');
+        return $this->db->get_where('biaya_masuk', ['biaya_masuk.id_program_studi' => $id_prodi])->result_array();
+    }
+
+    public function getBiayaViewJalur($id_jalur, $id_tahun, $id_prodi){
+        $this->db->select('jenis_biaya_masuk,jumlah_biaya_masuk');
+        return $this->db->get_where('biaya_masuk', ['id_jalur_pendaftaran' => $id_jalur, 'id_tahun_ajaran' => $id_tahun, 'id_program_studi' => $id_prodi])->result_array();
+    }
+
+    public function getTotalJurusan(){
+        return $this->db->query('SELECT COUNT(program_studi.id_program_studi) AS total, program_studi.nama_program_studi AS nama FROM `pendaftaran` JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi GROUP BY program_studi.id_program_studi')->result_array();
+    }
+
+    public function getTotalPendaftar($id_ta){
+        return $this->db->query("SELECT COUNT(id_pendaftaran) AS total FROM `pendaftaran` WHERE `id_tahun_ajaran` = $id_ta")->row_array();
+    }
+
+    public function getTotalPesertaSeleksi(){
+        return $this->db->query('SELECT * FROM `hasil_tes_seleksi` GROUP BY id_peserta')->num_rows();
+    }
 }
