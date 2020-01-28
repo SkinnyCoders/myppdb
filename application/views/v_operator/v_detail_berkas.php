@@ -99,7 +99,7 @@
                   <div class="row float-right" id="notif-verif">
                     <small class="text-muted">Data berkas ini sudah diverifikasi klik <button id="change" class="btn btn-xs btn-warning">Disini</button> untuk mengubah</small>
                   </div>
-                <?php } ?>
+                <?php }else{ $disable = ''; } ?>
                 <div class="float-right" id="btn-verif" style="display: <?= $disable ?>">
                   <a href="javascript:void(0)" id="<?= $peserta['id_pendaftaran'] ?>" class="btn btn-danger float-right ml-4 tolak">Tolak!</a>
                   <a href="javascript:void(0)" id="<?= $peserta['id_pendaftaran'] ?>" class=" btn btn-success float-right verif">Verifikasi!</a>

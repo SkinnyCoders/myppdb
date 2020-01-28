@@ -28,7 +28,7 @@
                       <div class="card card-default ">
                           <div class="card-header">
                               <h3 class="card-title"><i class="far fa-dollar"></i> Data berkas peserta yang sudah lengkap</h3>
-                              <a class="btn btn-sm btn-primary float-right ml-3" href="javascript:void(0)"><i class="fa fa-search"></i> Cari Pendaftar</a>
+                             <!--  <a class="btn btn-sm btn-primary float-right ml-3" href="javascript:void(0)"><i class="fa fa-search"></i> Cari Pendaftar</a> -->
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->

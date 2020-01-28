@@ -6,7 +6,8 @@
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
     </li>
     <li class="nav-item">
-      <h3 class="text-header text-info text-bold my-auto ml-2">PPDB SMK MUHAMMADIYAH MLATI</h3>
+
+      <h3 class="text-header text-info text-bold my-auto ml-2"><img class="image" style="width: 40px;" src="<?= base_url('assets/img/logo/logo-smk.png'); ?>"> PPDB SMK MUHAMMADIYAH MLATI</h3>
     </li>
     <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>

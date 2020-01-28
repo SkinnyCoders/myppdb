@@ -178,8 +178,12 @@ class m_peserta extends CI_model
         $pesertaDiterima = $this->db->query("SELECT `id_pendaftaran` FROM `pendaftaran` WHERE `id_program_studi` = $id_jurusan AND `id_tahun_ajaran` = $id_tahun AND status_kelulusan = 'lulus' AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran)")->num_rows();
 
         $data = $this->db->get_where('kouta_pendaftaran', ['id_program_studi' => $id_jurusan, 'id_tahun_ajaran' => $id_tahun])->row_array();
-        $totalKuota = $data['jumlah'];
-
+        if (!empty($data)) {
+            $totalKuota = $data['jumlah'];
+        }else{
+            $totalKuota = 0;
+        }
+        
         $sisa = $totalKuota - $pesertaDiterima;
 
         return $sisa;

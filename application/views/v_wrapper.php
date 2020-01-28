@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $title ?></title>
-    <link rel="shortcut icon" href="<?= base_url('assets/img/logo/logo-ppdb.png'); ?>">
+    <link rel="shortcut icon" href="<?= base_url('assets/img/logo/logo-smk.png'); ?>">
 
     <!-- Main CDN Styles -->
     <?php $this->load->view('templates/cdn_style.php'); ?>
