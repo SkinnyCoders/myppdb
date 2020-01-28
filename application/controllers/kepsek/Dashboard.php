@@ -11,11 +11,19 @@ class Dashboard extends CI_controller
         parent::__construct();
         //login cek and authentication
         getAuth(1);
+
+        $this->load->model('m_pendaftaran');
+        $this->load->helper('cektahun');
     }
 
     public function index()
     {
         $data['title'] = 'Dashboard Kepala Sekolah';
+        $data['pendaftar'] = $this->m_pendaftaran->getTotalPendaftar(getIdTahun(getTahun()));
+        $data['diterima'] = $this->m_pendaftaran->getPesertaDiterima(getIdTahun(getTahun()))->num_rows();
+
+        var_dump($data['diterima']);
+
         getViews($data, 'v_kepsek/dashboard');
     }
 
@@ -23,5 +31,37 @@ class Dashboard extends CI_controller
     {
         $data['title'] = 'Dashboard Kepala Sekolah';
         getViews($data, 'v_kepsek/v_pendaftar');
+    }
+
+    public function get_dataChart(){
+
+    }
+
+    public function get_dataChart3(){
+
+        $jurusan = $this->m_pendaftaran->getTotalJurusan(getIdTahun(getTahun()));
+
+        foreach ($jurusan as $jtotal) {
+            $total = explode(',', $jtotal['total']);
+            $totalJurusan[] = array_sum($total);
+        }
+
+        foreach ($jurusan as $jlabel) {
+            $label[] = $jlabel['nama'];
+        }
+
+        $dataJurusan = ['jurusan' => $totalJurusan,
+                        'nama_jurusan' => $label];
+        echo json_encode($dataJurusan);
+    }
+
+    public function get_dataChart2(){
+
+        $total = $this->m_pendaftaran->getTotalGender(getIdTahun(getTahun()));
+        
+
+        $data = ['jumlah' => $total];
+
+        echo json_encode($data);
     }
 }

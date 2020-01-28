@@ -118,12 +118,14 @@
                           <li class="list-group-item">
                               Tes Seleksi
                               <?php
-
                               foreach ($seleksi as $s) {
-                                $tes = in_array('false', $s);
-                              }
-                              
+                                  $tes[] = in_array('false', $s);
+                                }
+
                               if (!empty($seleksi)) {
+
+
+                                var_dump($tes);
                                 if ($tes == false) {
                                    echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
                                  }else{

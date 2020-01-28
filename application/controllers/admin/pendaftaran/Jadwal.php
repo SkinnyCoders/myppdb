@@ -47,9 +47,8 @@ class Jadwal extends CI_Controller
                 'tgl_selesai' => $tgl_akhir
             ];
 
-            $insert = $this->db->insert('jadwal_pendaftaran', $data);
 
-            if ($insert) {
+            if (insertData('jadwal_pendaftaran', $data)) {
                 $this->session->set_flashdata('msg_success', 'Selamat, Data berhasil disimpan');
                 redirect('admin/pendaftaran/jadwal');
             } else {

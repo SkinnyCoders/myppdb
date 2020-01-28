@@ -37,8 +37,8 @@ class Auth extends CI_controller
                         ];
 
                         $this->session->set_userdata($data);
-                        $status = 'true';
-                        $this->m_auth->updateStatus($user['id_pengguna'], $status);
+                        //$status = 'true';
+                       // $this->m_auth->updateStatus($user['id_pengguna'], $status);
                         switch ($user['id_role']) {
                             case "1":
                                 $this->session->set_flashdata('msg_success', 'Selamat, Anda berhasil login');

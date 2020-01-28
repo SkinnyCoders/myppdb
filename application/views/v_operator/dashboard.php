@@ -33,7 +33,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="<?= base_url('kepsek/pendaftar') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('operator/pendaftar/list') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -63,7 +63,7 @@
               <div class="icon">
                 <i class="ion ion-checkmark"></i>
               </div>
-              <a href="<?= base_url('kepsek/pendaftar/dicadangkan') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('operator/verifikasi/berkas') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -71,14 +71,14 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3><?=$total_ujian?></h3>
+                <h3><?=$total_cabut?></h3>
 
-                <p> Mengikuti Ujian</p>
+                <p> Mencabut Berkas</p>
               </div>
               <div class="icon">
-                <i class="ion ion-checkmark"></i>
+                <i class="ion ion-close"></i>
               </div>
-              <a href="<?= base_url('kepsek/pendaftar/ditolak') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('operator/pendaftar/cabut_berkas') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -93,7 +93,7 @@
             <div class="alert alert-warning alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h5><i class="icon fas fa-exclamation-triangle"></i> Verifikasi Data</h5>
-                  Ada <strong><?=$belum_verify_data?></strong> peserta yang menunggu untuk diverifikasi datanya! <a style="text-decoration: none;" href="" class="btn btn-xs btn-primary">Verifikasi</a>
+                  Ada <strong><?=$belum_verify_data?></strong> peserta yang menunggu untuk diverifikasi datanya!<br> <a style="text-decoration: none;" href="<?=base_url('operator/verifikasi/data')?>" class="btn btn-xs btn-primary">Verifikasi</a>
                 </div>
           </div>
           <?php endif; ?>
@@ -104,7 +104,7 @@
             <div class="alert alert-warning alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h5><i class="icon fas fa-exclamation-triangle"></i> Verifikasi Berkas</h5>
-                  Ada <strong><?=$belum_verify_berkas?></strong> peserta yang menunggu untuk diverifikasi berkasnya! <a style="text-decoration: none;" href="" class="btn btn-xs btn-primary">Verifikasi</a>
+                  Ada <strong><?=$belum_verify_berkas?></strong> peserta yang menunggu untuk diverifikasi berkasnya!<br> <a style="text-decoration: none;" href="<?=base_url('operator/verifikasi/berkas')?>" class="btn btn-xs btn-primary">Verifikasi</a>
                 </div>
           </div>
           <?php endif; ?>

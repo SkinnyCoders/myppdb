@@ -136,6 +136,7 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="<?= base_url('kepsek/pendaftar/daftar-ulang') ?>" class="nav-link">
               <i class="nav-icon fa fa-home"></i>
@@ -350,6 +351,14 @@
               <i class="nav-icon fa fa-check"></i>
               <p>
                 Penerimaan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('operator/pendaftar/cabut_berkas') ?>" class="nav-link">
+              <i class="nav-icon fa fa-times"></i>
+              <p>
+                Cabut Berkas
               </p>
             </a>
           </li>

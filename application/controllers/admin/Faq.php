@@ -40,9 +40,7 @@ class Faq extends CI_controller
     			'jawaban' => $this->input->post('jawaban', true)
     		];
 
-    		$insert = $this->db->insert('faq', $data);
-
-    		if ($insert) {
+    		if (insertData('faq', $data)) {
     			$this->session->set_flashdata('msg_success', 'Selamat, data berhasil ditambahkan');
                 redirect('admin/faq');
     		}else{

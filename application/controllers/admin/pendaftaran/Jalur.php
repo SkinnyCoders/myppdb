@@ -43,9 +43,7 @@ class Jalur extends CI_Controller
                 'status_jalur_pendaftaran' => true
             ];
 
-            $insert = $this->db->insert('jalur_pendaftaran', $data);
-
-            if ($insert) {
+            if (insertData('jalur_pendaftaran', $data)) {
                 $this->session->set_flashdata('msg_success', 'Selamat, Data berhasil disimpan');
                 redirect('admin/pendaftaran/jalur');
             } else {

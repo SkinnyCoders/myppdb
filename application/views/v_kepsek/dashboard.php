@@ -26,7 +26,7 @@
             <!-- small box -->
             <div class="small-box bg-blue">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?=$pendaftar['total']?></h3>
 
                 <p>Peserta Terdaftar</p>
               </div>
@@ -41,7 +41,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>53</h3>
+                <h3><?=$diterima?></h3>
 
                 <p>Peserta Diterima</p>
               </div>
@@ -101,11 +101,21 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-md-6">
                     <canvas id="pieChart" style="height:230px; min-height:300px"></canvas>
                   </div>
-                  <div class="col-md-4">
-                    <canvas id="pieChart2" style="height:230px;"></canvas>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <canvas id="pieChart2" style="height:230px;"></canvas>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <canvas id="pieChart3" style="height:230px;"></canvas>
+                      </div>
+                    </div>
+                    
                   </div>
                 </div>
 
@@ -177,36 +187,61 @@
 
   <script>
     $(document).ready(function() {
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-
-      //-------------
-      //- PIE CHART -
-      //-------------
-      // Get context with jQuery - using jQuery's .get() method.
-      var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
-      var donutData = {
-        labels: [
-          'Laki - Laki',
-          'Perempuan'
-        ],
-        datasets: [{
-          data: [1000, 500],
-          backgroundColor: ['#00c0ef', '#00a65a'],
-        }]
-      }
       var pieOptions = {
         maintainAspectRatio: false,
         responsive: true,
       }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
-      var pieChart = new Chart(pieChartCanvas, {
-        type: 'pie',
-        data: donutData,
-        options: pieOptions
-      })
-    })
+            $.ajax({
+                type : 'POST',
+                url : "<?=base_url('kepsek/dashboard/get_dataChart2')?>",
+                dataType : "json",
+                success: function(data){
+
+                    var pieChartCanvas = $('#pieChart2').get(0).getContext('2d');
+                    var pieChart = new Chart(pieChartCanvas, {
+                      type: 'pie',
+                      data: {
+                        labels: [
+                          'Laki - Laki',
+                          'Perempuan'
+                        ],
+                        datasets: [{
+                          data: data.jumlah,
+                          backgroundColor: ['#00c0ef', '#00a65a'],
+                        }]
+                      },
+                      options: pieOptions
+                    });
+                }
+            });
+        });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      var pieOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+      }
+            $.ajax({
+                type : 'POST',
+                url : "<?=base_url('kepsek/dashboard/get_dataChart3')?>",
+                dataType : "json",
+                success: function(data){
+
+                    var pieChartCanvas = $('#pieChart3').get(0).getContext('2d');
+                    var pieChart = new Chart(pieChartCanvas, {
+                      type: 'pie',
+                      data: {
+                        labels: data.nama_jurusan,
+                        datasets: [{
+                          data: data.jurusan,
+                          backgroundColor: ['#f39c12','#00a65a','#f56954','#00c0ef',  '#eaeaea'],
+                        }]
+                      },
+                      options: pieOptions
+                    });
+                }
+            });
+        });
   </script>

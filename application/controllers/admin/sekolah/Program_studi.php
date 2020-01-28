@@ -66,7 +66,7 @@ class Program_studi extends CI_controller
                 'slug' => strtolower($slug)
             ];
 
-            if ($this->db->insert('program_studi', $data)) {
+            if (insertData('program_studi', $data)) {
                 $this->session->set_flashdata('msg_success', 'Selamt, Data Program Studi berhasil ditambahkan');
                 redirect('admin/sekolah/program_studi');
             } else {

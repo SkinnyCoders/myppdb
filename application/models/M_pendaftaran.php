@@ -75,14 +75,10 @@ class M_pendaftaran extends CI_Model
         return $this->db->get_where('jalur_pendaftaran', ['jalur_prodi.id_prodi' => $id])->result_array();
     }
 
-    public function getTotalGender(){
-        $this->db->select('*');
-        $this->db->join('data_diri', 'data_diri.id_data_diri=peserta.id_data_diri');
-        $totalLaki = $this->db->get_where('peserta',['data_diri.jenis_kelamin' => 'L'])->num_rows();
+    public function getTotalGender($id_tahun){
+        $totalLaki = $this->db->query("SELECT peserta.id_peserta FROM `peserta` JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri JOIN pendaftaran ON pendaftaran.id_pendaftaran=peserta.id_pendaftaran WHERE data_diri.jenis_kelamin = 'L' AND pendaftaran.id_tahun_ajaran = $id_tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=peserta.id_pendaftaran)")->num_rows();
 
-        $this->db->select('*');
-        $this->db->join('data_diri', 'data_diri.id_data_diri=peserta.id_data_diri');
-        $totalPerempuan = $this->db->get_where('peserta',['data_diri.jenis_kelamin' => 'P'])->num_rows();
+        $totalPerempuan = $this->db->query("SELECT peserta.id_peserta FROM `peserta` JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri JOIN pendaftaran ON pendaftaran.id_pendaftaran=peserta.id_pendaftaran WHERE data_diri.jenis_kelamin = 'P' AND pendaftaran.id_tahun_ajaran = $id_tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=peserta.id_pendaftaran)")->num_rows();
 
         return [$totalLaki,$totalPerempuan];
 
@@ -109,15 +105,20 @@ class M_pendaftaran extends CI_Model
         return $this->db->get_where('biaya_masuk', ['id_jalur_pendaftaran' => $id_jalur, 'id_tahun_ajaran' => $id_tahun, 'id_program_studi' => $id_prodi])->result_array();
     }
 
-    public function getTotalJurusan(){
-        return $this->db->query('SELECT COUNT(program_studi.id_program_studi) AS total, program_studi.nama_program_studi AS nama FROM `pendaftaran` JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi GROUP BY program_studi.id_program_studi')->result_array();
+    public function getTotalJurusan($id_tahun){
+        return $this->db->query("SELECT COUNT(program_studi.id_program_studi) AS total, program_studi.nama_program_studi AS nama FROM `pendaftaran` JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi WHERE pendaftaran.id_tahun_ajaran = $id_tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) GROUP BY program_studi.id_program_studi")->result_array();
     }
 
     public function getTotalPendaftar($id_ta){
-        return $this->db->query("SELECT COUNT(id_pendaftaran) AS total FROM `pendaftaran` WHERE `id_tahun_ajaran` = $id_ta")->row_array();
+        return $this->db->query("SELECT COUNT(pendaftaran.id_pendaftaran) AS total FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE `id_tahun_ajaran` = $id_ta AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran)")->row_array();
     }
 
-    public function getTotalPesertaSeleksi(){
-        return $this->db->query('SELECT * FROM `hasil_tes_seleksi` GROUP BY id_peserta')->num_rows();
+    public function getTotalPencabutan($id_tahun){
+        return $this->db->query("SELECT `id_pencabutan` FROM `pencabutan` JOIN pendaftaran ON pendaftaran.id_pendaftaran=pencabutan.id_pendaftaran JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE pendaftaran.id_tahun_ajaran = $id_tahun")->num_rows();
+    }
+
+    public function getPesertaDiterima($id_tahun){
+        $this->db->select('id_pendaftaran');
+        return $this->db->get_where('pendaftaran', ['id_tahun_ajaran' => $id_tahun, 'status_kelulusan' => 'lulus']);
     }
 }

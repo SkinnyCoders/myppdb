@@ -40,22 +40,44 @@
                                  <th class="text-nowrap" style="width: 5%">No</th>
                                  <th class="text-nowrap" style="width: 15%">No.Pendaftaran</th>
                                  <th class="text-nowrap" style="width: 20%">Nama</th>
-                                 <th class="text-nowrap" style="width: 15%">Jalur Pendaftaran</th>
-                                 <th class="text-nowrap" style="width: 15%">Program Studi</th>
+                                 <th class="text-nowrap" style="width: 15%">Jalur - Program Studi</th>
+                                 <th class="text-nowrap" style="width: 15%">Tahun Ajaran</th>
                                  <th class="text-nowrap" style="width: 10%">Status</th>
                                  <th style="width: 15%">Aksi</th>
                                </tr>
                              </thead>
                              <tbody>
+                              <?php 
+                              $no = 1;
+                              foreach ($daftar as $peserta) :
+                                if ($peserta['id_berkas'] !== NULL) :
+
+                                $tahun_ajaran = $this->db->get_where('tahun_ajaran', ['id_tahun_ajaran' => $peserta['id_tahun_ajaran']])->row_array();
+                               ?>
                                 <tr>
-                                  <td>1</td>
-                                  <td>20/1/0001</td>
-                                  <td>Rizki Ristano</td>
-                                  <td>Reguler</td>
-                                  <td>Komputer</td>
-                                  <td><label class="btn btn-sm btn-success">Sudah</label></td>
-                                  <td><a href="javascript:void(0)" data-toggle="modal" id="" data-target="#modal-lg" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-eye"></i> Lihat Berkas</a></td>
+                                  <td><?=$no++?></td>
+                                  <td><?=$peserta['no_pendaftaran']?></td>
+                                  <td><?=ucwords($peserta['nama_lengkap'])?></td>
+                                  <td><?=ucwords($peserta['nama_jalur_pendaftaran'])?> - <?=ucwords($peserta['nama_program_studi'])?></td>
+                                  <td><?=$tahun_ajaran['tahun_mulai']?>/<?=$tahun_ajaran['tahun_akhir']?></td>
+                                  <td>
+                                    <?php 
+                                    if ($peserta['status_verifikasi_berkas'] == 'belum') {
+                                     echo '<i class="fas fa-lg fa-history text-secondary my-1"></i>';
+                                    }elseif($peserta['status_verifikasi_berkas'] == 'sudah'){
+                                      echo '<i class="fas fa-lg fa-check text-success my-1"></i>';
+                                    }else{
+                                      echo '<i class="fas fa-lg fa-times text-danger my-1"></i>';
+                                    }
+                                    ?>
+                                    
+                                    </td>
+                                  <td><a href="<?=base_url('operator/verifikasi/berkas/detail/'.$peserta['id_peserta'])?>" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-eye"></i> Berkas</a></td>
                                 </tr>
+                                <?php 
+                                  endif;
+                                endforeach;
+                                 ?>
                              </tbody>
                            </table>
                           </div>
@@ -70,3 +92,17 @@
   <!-- /.content-wrapper -->
 
   <?php $this->load->view('templates/cdn_admin'); ?>
+
+  <script>
+   $(function() {
+     $("#example1").DataTable({});
+     $('#example2').DataTable({
+       "paging": true,
+       "lengthChange": false,
+       "searching": false,
+       "ordering": true,
+       "info": true,
+       "autoWidth": false,
+     });
+   });
+ </script>

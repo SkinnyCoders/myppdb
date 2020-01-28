@@ -9,7 +9,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item active">No.Pendaftaran : 20/1/0005</li>
+              <li class="breadcrumb-item active">No.Pendaftaran : <?=$pendaftaran['no_pendaftaran']?></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,6 +31,7 @@
       default:
         $color_badge = 'blue';
         break;
+
     }
     ?>
 
@@ -47,19 +48,36 @@
                 <div class="card-body pt-0">
                   <div class="row">
                     <div class="col-md-4 text-center">
-                      <img src="<?= base_url('assets/img/user/4ab0b2796e901b9aead1e0a20a6276de.jpg') ?>" class="img-peserta" alt="" class="img-circle">
+                      <?php if (!empty($berkas['pas_foto'])) {?>
+                      <img src="<?= base_url('assets/uploads/berkas_peserta/'.$berkas['pas_foto']) ?>" class="img-peserta" alt="" class="img-circle">
+                    <?php }else{ ?>
+                      <img src="<?= base_url('assets/img/uploads/default-image.png')?>" class="img-peserta" alt="" class="img-circle"> 
+                    <?php } ?>
                     </div>
+
+                    <?php if(!empty($detail['id_data_diri'])) : 
+                      $tgl_lahir = DateTime::createFromFormat('Y-m-d', $detail['tgl_lahir'])->format('d F Y');
+                      if ($detail['jenis_kelamin'] == 'L') {
+                        $gender = 'Laki - Laki';
+                      }else{
+                        $gender = "Perempuan";
+                      }
+                      ?>
                     <div class="col-md-8">
-                      <h1 class="text-header"><b>Nicole Pearson</b> <i style="font-size:20px; color:<?= $color_badge ?>" class="fas fa-sm fa-check-circle"></i></h1>
+                      <h1 class="text-header"><b><?=ucwords($detail['nama_lengkap'])?></b> <i style="font-size:20px; color:<?= $color_badge ?>" class="fas fa-sm fa-check-circle"></i></h1>
                       <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> <b>NISN</b>: 34928945</li>
-                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> <b>Email</b>: johndoe@gmail.com</li>
-                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-mobile"></i></span> <b>No Telp</b> : + 800 - 12 12 23 52</li>
-                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <b>Alamat</b> : jln magelang km 7.5, kab selaman DIY</li>
-                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-calendar-check"></i></span> <b>Tanggal lahir</b> : 20 January 2020</li>
-                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-map"></i></span> <b>Tempat lahir</b> : Jakarta</li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-user"></i></span> <b>NISN</b>: <?=$detail['nisn']?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> <b>Email</b>: <?=$detail['email_peserta']?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-venus-mars"></i></span> <b>Jenis Kelamin</b> : <?=$gender?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-calendar-check"></i></span> <b>Tanggal lahir</b> : <?=ucwords($tgl_lahir)?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-map"></i></span> <b>Tempat lahir</b> : <?= (!empty($detail['tempat_lahir']) ? ucwords($detail['tempat_lahir']) : 'Kosong')?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-mobile"></i></span> <b>No Telp</b> : <?= (!empty($detail['no_hp']) ? ucwords($detail['no_hp']) : 'Kosong')?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-heart"></i></span> <b>Agama</b> : <?= (!empty($detail['agama']) ? ucwords($detail['agama']) : 'Kosong')?></li>
+                        <li class="medium mt-2"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <b>Alamat</b> : <?=ucfirst($detail['alamat_rumah'])?></li>
+                        
                       </ul>
                     </div>
+                  <?php endif; ?>
                   </div>
                   <!-- info row -->
                   <div class="row mt-5 invoice-info">
@@ -69,42 +87,42 @@
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Nama Ayah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>bambang</td>
+                          <td><?= (!empty(ucwords($detail['nama_ortu_ayah'])) ? ucwords($detail['nama_ortu_ayah']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Pekerjaan Ayah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Karyawan Swasta</td>
+                          <td><?= (!empty($detail['pekerjaan_ortu_ayah']) ? ucfirst($detail['pekerjaan_ortu_ayah']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Alamat Ayah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit praesentium illum excepturi dolorum blanditiis laboriosam corporis alias sed in nobis ipsa dolore recusandae possimus, ipsum expedita! Consectetur perferendis magni sapiente!</td>
+                          <td><?= (!empty(ucwords($detail['alamat_ortu_ayah'])) ? ucwords($detail['alamat_ortu_ayah']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">No Telp Ayah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>083871467467</td>
+                          <td><?= (!empty(ucwords($detail['no_hp_ortu_ayah'])) ? ucwords($detail['no_hp_ortu_ayah']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Nama Ibu</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Siti Kumala sari</td>
+                          <td><?= (!empty($detail['nama_ortu_ibu']) ? ucwords($detail['nama_ortu_ibu']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Pekerjaan Ibu</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Ibu Rumah Tangga</td>
+                          <td><?= (!empty($detail['pekerjaan_ortu_ibu']) ? ucwords($detail['pekerjaan_ortu_ibu']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Alamat Ibu</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta qui nesciunt iure aspernatur numquam tempore quasi perferendis eum. Ea tempora suscipit necessitatibus vel! Id distinctio unde odio officiis illum fugit.</td>
+                          <td><?= (!empty($detail['alamat_ortu_ibu']) ? ucfirst($detail['alamat_ortu_ibu']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">No Telp Ibu</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>08812324562</td>
+                          <td><?= (!empty($detail['no_hp_ortu_ibu']) ? ucwords($detail['no_hp_ortu_ibu']) : 'Kosong')?></td>
                         </tr>
                       </table>
                     </div>
@@ -115,123 +133,96 @@
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Nama Sekolah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>bambang</td>
+                          <td><?= (!empty($detail['nama_sekolah_asal']) ? ucwords($detail['nama_sekolah_asal']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Alamat Sekolah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit praesentium illum excepturi dolorum blanditiis laboriosam corporis alias sed in nobis ipsa dolore recusandae possimus, ipsum expedita! Consectetur perferendis magni sapiente!</td>
+                          <td><?= (!empty($detail['alamat_sekolah_asal']) ? ucfirst($detail['alamat_sekolah_asal']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">No Telp Sekolah</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>083871467467</td>
+                          <td><?= (!empty($detail['no_telp_sekolah_asal']) ? ucwords($detail['no_telp_sekolah_asal']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Tahun Masuk</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Siti Kumala sari</td>
+                          <td><?= (!empty($detail['tahun_masuk_sekolah_asal']) ? ucwords($detail['tahun_masuk_sekolah_asal']) : 'Kosong')?></td>
                         </tr>
                         <tr>
                           <th class="text-nowrap" style="width:25%;">Tahun Lulus</th>
                           <td class="text-nowrap" style="width:5%;">:</td>
-                          <td>Ibu Rumah Tangga</td>
+                          <td><?= (!empty($detail['tahun_lulus_sekolah_asal']) ? ucwords($detail['tahun_lulus_sekolah_asal']) : 'Kosong')?></td>
                         </tr>
 
                       </table>
                     </div>
                     <!-- /.col -->
-                    <!-- <div class="col-md-2 invoice-col">
-                      <h5><strong>Data Berkas</strong></h5>
-
-                      <table class="table table-responsive table-striped borderless">
-                        <tr>
-                          <td>Foto</td>
-                          <td><a href="" class="btn btn-sm btn-info">Lihat</a></td>
-                        </tr>
-                        <tr>
-                          <td>Izajah</td>
-                          <td><a href="" class="btn btn-sm btn-info">Lihat</a></td>
-                        </tr>
-                        <tr>
-                          <td>SKHUN</td>
-                          <td><a href="" class="btn btn-sm btn-info">Lihat</a></td>
-                        </tr>
-                        <tr>
-                          <td>Kartu Keluarga</td>
-                          <td><a href="" class="btn btn-sm btn-info">Lihat</a></td>
-                        </tr>
-                      </table>
-                    </div> -->
-                    <!-- /.col -->
                   </div>
                   <!-- /.row -->
+                  <?php if (!empty($berkas)) :?>
                   <hr>
                   <div class="row mt-3">
                     <div class="col-md-12 invoice-col">
                       <h5><strong>Data Berkas</strong></h5>
                       <div class="box-footer">
                         <ul class="mailbox-attachments clearfix">
-                          <li>
-                            <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                          <?php if (!empty($berkas['ijazah_terakhir'])) { ?>
+                            <li>
+                              <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                            <div class="mailbox-attachment-info">
-                              <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> IZAJAH</a>
-                              <!-- <span class="mailbox-attachment-size">
-                                1,245 KB
-                                <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                              </span> -->
-                            </div>
-                          </li>
-                          <li>
-                            <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                              <div class="mailbox-attachment-info">
+                                <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['ijazah_terakhir']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> IJAZAH</a>
+                               
+                              </div>
+                            </li>
+                          <?php }
+                          if (!empty($berkas['skhun'])) { ?>
+                            <li>
+                              <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                            <div class="mailbox-attachment-info">
-                              <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SKHUN</a>
-                              <!-- <span class="mailbox-attachment-size">
-                                1,245 KB
-                                <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                              </span> -->
-                            </div>
-                          </li>
-                          <li>
-                            <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                              <div class="mailbox-attachment-info">
+                                <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['skhun']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SKHUN</a>
+                          
+                              </div>
+                            </li>
+                          <?php }
+                          if (!empty($berkas['kartu_keluarga'])) { ?>
+                            <li>
+                              <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                            <div class="mailbox-attachment-info">
-                              <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> KK</a>
-                              <!-- <span class="mailbox-attachment-size">
-                                1,245 KB
-                                <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                              </span> -->
-                            </div>
-                          </li>
-                          <li>
-                            <span class="mailbox-attachment-icon"><i style="color:royalblue" class="fa fa-file-word"></i></span>
+                              <div class="mailbox-attachment-info">
+                                <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['kartu_keluarga']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Kartu Keluarga</a>
+                  
+                              </div>
+                            </li>
+                          <?php }
+                          if (!empty($berkas['keterangan_sehat'])) { ?>
+                            <li>
+                              <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                            <div class="mailbox-attachment-info">
-                              <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Kartu Keluarga</a>
-                              <!-- <span class="mailbox-attachment-size">
-                                1,245 KB
-                                <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                              </span> -->
-                            </div>
-                          </li>
+                              <div class="mailbox-attachment-info">
+                                <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['keterangan_sehat']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SK SEHAT</a>
+                              
+                              </div>
+                            </li>
+                          <?php }
+                          if (!empty($berkas['pas_foto'])) { ?>
+                            <li>
+                              <span class="mailbox-attachment-icon has-img"><img class="img-file" src="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['pas_foto']) ?>" alt="Attachment"></span>
 
-                          <li>
-                            <span class="mailbox-attachment-icon has-img"><img class="img-file" src="<?= base_url('assets/img/uploads/c9262b7a1f6eb23e9981758722827897.jpg') ?>" alt="Attachment"></span>
-
-                            <div class="mailbox-attachment-info">
-                              <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> photo</a>
-                              <!-- <span class="mailbox-attachment-size">
-                                1.9 MB
-                                <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                              </span> -->
-                            </div>
-                          </li>
+                              <div class="mailbox-attachment-info">
+                                <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['pas_foto']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-camera"></i> FOTO</a>
+            
+                              </div>
+                            </li>
+                          <?php } ?>
                         </ul>
                       </div>
                     </div>
                   </div>
+                <?php endif; ?>
                 </div>
               </div>
             </div>

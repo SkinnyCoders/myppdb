@@ -36,9 +36,7 @@ class Kuota extends CI_controller
                 'jumlah' => $this->input->post('kouta', true)
             ];
 
-            $insert = $this->db->insert('kouta_pendaftaran', $data);
-
-            if ($insert) {
+            if (insertData('kouta_pendaftaran', $data)) {
                 $this->session->set_flashdata('msg_success', 'Selamt, Data kouta pendaftaran berhasil ditambah');
                 redirect('admin/pendaftaran/kuota');
             } else {

@@ -22,7 +22,7 @@ class Dashboard extends CI_controller
         $data['pendaftar'] = $this->m_pendaftaran->getTotalPendaftar(getIdTahun(getTahun()));
         $data['lengkap_data'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_data' => 'lengkap'])->num_rows();
         $data['lengkap_berkas'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_berkas' => 'lengkap'])->num_rows();
-        $data['total_ujian'] = $this->m_pendaftaran->getTotalPesertaSeleksi();
+        $data['total_cabut'] = $this->m_pendaftaran->getTotalPencabutan(getIdTahun(getTahun()));
 
         $data['belum_verify_data'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_data' => 'lengkap', 'status_verifikasi_data' => 'belum'])->num_rows();
         $data['belum_verify_berkas'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_berkas' => 'lengkap', 'status_verifikasi_berkas' => 'belum'])->num_rows();
@@ -32,7 +32,7 @@ class Dashboard extends CI_controller
 
     public function get_dataChart(){
 
-        $jurusan = $this->m_pendaftaran->getTotalJurusan();
+        $jurusan = $this->m_pendaftaran->getTotalJurusan(getIdTahun(getTahun()));
 
         foreach ($jurusan as $jtotal) {
             $total = explode(',', $jtotal['total']);
@@ -50,7 +50,7 @@ class Dashboard extends CI_controller
 
     public function get_dataChart2(){
 
-        $total = $this->m_pendaftaran->getTotalGender();
+        $total = $this->m_pendaftaran->getTotalGender(getIdTahun(getTahun()));
         
 
         $data = ['jumlah' => $total];

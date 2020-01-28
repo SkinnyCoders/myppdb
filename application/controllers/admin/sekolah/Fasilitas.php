@@ -47,9 +47,7 @@ class Fasilitas extends CI_controller
                 'foto_fasilitas' => $gambar
             ];
 
-            $insert = $this->db->insert('fasilitas', $data);
-
-            if ($insert) {
+            if (insertData('fasilitas', $data)) {
                 $this->session->set_flashdata('msg_success', 'Selamat, Data Fasilitas berhasil ditambahkan');
                 redirect('admin/sekolah/fasilitas');
             } else {

@@ -16,7 +16,7 @@ class m_peserta extends CI_model
 
     public function getAllDataPeserta($id_peserta)
     {
-        $this->db->select('data_diri.*,data_ortu.*,data_sekolah_asal.*,peserta.id_ortu,peserta.id_sekolah_asal, peserta.id_pendaftaran');
+        $this->db->select('data_diri.*,data_ortu.*,data_sekolah_asal.*,peserta.*');
         $this->db->from('peserta');
         $this->db->join('data_diri', 'data_diri.id_data_diri=peserta.id_data_diri');
         $this->db->join('data_ortu', 'data_ortu.id_ortu=peserta.id_ortu');

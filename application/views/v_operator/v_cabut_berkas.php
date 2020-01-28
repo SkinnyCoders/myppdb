@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+ <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <div class="content-header">
@@ -27,8 +27,8 @@
                       <!-- general form elements -->
                       <div class="card card-default ">
                           <div class="card-header">
-                              <h3 class="card-title"><i class="far fa-dollar"></i> Data berhasil melakukan daftar ulang</h3>
-                              <a class="btn btn-sm btn-primary float-right ml-3" href="<?=base_url('operator/daftar_ulang/tambah')?>"><i class="fa fa-plus"></i> Tambah Daftar Ulang</a>
+                              <h3 class="card-title"><i class="far fa-dollar"></i> Data Peserta Cabut Berkas</h3>
+                              <a class="btn btn-sm btn-primary float-right ml-3 cabut" data-toggle="modal" data-target="#modal-lg" href="javascript:void(0)"><i class="fa fa-plus"></i> Cabut Berkas</a>
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->
@@ -36,42 +36,28 @@
                           <div class="card-body">
                             <table id="example1" class="table table-striped">
                              <thead>
-                               <tr>
+                                <tr>
                                  <th class="text-nowrap" style="width: 5%">No</th>
-                                 <th class="text-nowrap" style="width: 15%">No.Pendaftaran</th>
-                                 <th class="text-nowrap" style="width: 20%">Nama</th>
+                                 <th class="text-nowrap" style="width: 12%">No.Pendaftaran</th>
+                                 <th class="text-nowrap" style="width: 18%">Nama</th>
                                  <th class="text-nowrap" style="width: 15%">Jalur - Program Studi</th>
-                                 <th class="text-nowrap" style="width: 15%">Tanggal</th>
-                                 <th class="text-nowrap" style="width: 10%">Status</th>
-                                 <th style="width: 10%">Aksi</th>
+                                 <th class="text-nowrap" style="width: 10%">Tahun Ajaran</th>
+                                 <th style="width: 5%">Aksi</th>
                                </tr>
                              </thead>
                              <tbody>
                               <?php 
                               $no = 1;
-                              foreach ($daftar_ulang as $daftar) :
-                                $tgl = DateTime::createFromFormat('Y-m-d H:i:s', $daftar['tanggal'])->format('d F Y');
-                               ?>
+                              foreach ($cabut_berkas as $cabut) :?>
                                 <tr>
                                   <td><?=$no++?></td>
-                                  <td><?=$daftar['no_pendaftaran']?></td>
-                                  <td><?=ucwords($daftar['nama_lengkap'])?></td>
-                                  <td><?=$daftar['nama_jalur_pendaftaran']?> - <?=$daftar['nama_program_studi']?></td>
-                                  <td><?=$tgl?></td>
-                                  <td>
-                                    <?php 
-                                    if ($daftar['status'] == 'sudah') {
-                                      echo '<label class="btn btn-xs btn-success">Sudah</label>';
-                                    }else{
-                                      echo '<label class="btn btn-xs btn-danger">Belum</label>';
-                                    }
-                                     ?>
-                                  </td>
-                                  <td><a href="javascript:void(0)" data-toggle="modal" id="<?=$daftar['id_daftar_ulang']?>" data-target="#modal-lg" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-edit"></i></a><a href="javascript:void(0)" id="<?=$daftar['id_daftar_ulang']?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a></td>
+                                  <td><?=ucwords($cabut['no_pendaftaran'])?></td>
+                                  <td><?=ucwords($cabut['nama_lengkap'])?></td>
+                                  <td><?=ucwords($cabut['nama_jalur_pendaftaran'])?> - <?=ucwords($cabut['nama_program_studi'])?></td>
+                                  <td><?=ucwords($cabut['tahun_mulai'])?>/<?=ucwords($cabut['tahun_akhir'])?></td>
+                                  <td><a href="javascript:void(0)" id="<?=$cabut['id_pendaftaran']?>" class="btn btn-sm btn-warning delete"><i class="fa fa-times"></i></a></td>
                                 </tr>
-                                <?php 
-                                endforeach;
-                                 ?>
+                              <?php endforeach; ?>
                              </tbody>
                            </table>
                           </div>
@@ -82,10 +68,10 @@
               </div>
 
               <div class="modal fade" id="modal-lg">
-               <div class="modal-dialog">
+               <div class="modal-dialog modal-lg">
                  <div class="modal-content">
                    <div class="modal-header">
-                     <h4 class="modal-title">Edit <span id="nama2"></span></h4>
+                     <h4 class="modal-title">Cabut Berkas Peserta</h4>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                      </button>
@@ -94,29 +80,36 @@
                      <div class="row">
                        <div class="col-md-12">
                          <!-- form start -->
-                         <form action="<?= base_url('operator/daftar_ulang/update') ?>" method="post" role="form" enctype="multipart/form-data">
-                           
+                         <form action="<?= base_url('operator/pendaftar/cabut') ?>" method="post" role="form" enctype="multipart/form-data">
+                            
                              <div class="form-group">
-                               <label for="nama">Tanggal daftar Ulang</label>
-                               <input type="text" class="form-control tgl" name="tgl" id="datepicker" placeholder="Pilih Tanggal" value="">
-                               <small class="text-danger mt-2"><?= form_error('nama') ?></small>
+                               <label for="nama">Peserta</label>
+                               <select class="form-control select2bs4" name="peserta" data-placeholder="Pilih Peserta">
+                                <option></option>
+                                <?php 
+                                foreach ($peserta as $p) { ?>
+                                  <option value="<?=$p['id_peserta']?>"><?=ucwords($p['no_pendaftaran'])?> - <?=ucwords($p['nama_lengkap'])?></option>
+                                  <?php
+                                }
+                                 ?>
+                                
+                               </select>
+                               <small class="text-danger mt-2"><?= form_error('peserta') ?></small>
 
                                <input type="hidden" name="id" class="id" value="" required>
                              </div>
                              <div class="form-group">
-                               <label for="des">Status Daftar Ulang</label>
-                               <select class="form-control status" name="status">
-                                 <option value="sudah">Sudah</option>
-                                 <option value="belum">Belum</option>
-                               </select>
-                               <small class="text-danger mt-2"><?= form_error('deskripsi') ?></small>
+                               <label for="des">Keterangan</label>
+                               <textarea id="des" name="keterangan" class="form-control des" style="height: 150px;" placeholder="Masukkan Keterangan"></textarea>
+                               <small class="text-danger mt-2"><?= form_error('keterangan') ?></small>
                              </div>
+                             
                            <!-- /.card-body -->
                        </div>
                      </div>
                    </div>
                    <div class="modal-footer justify-content-between">
-                     <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                     <button type="submit" name="simpan" class="btn btn-primary">Cabut Berkas</button>
                      </form>
                    </div>
                  </div>
@@ -132,19 +125,17 @@
 
   <?php $this->load->view('templates/cdn_admin'); ?>
 
-  <!-- bootstrap datepicker -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
   <script>
-    $(function() {
-      //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true
-      })
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
     })
   </script>
 
-  <script>
+    <script>
    $(function() {
      $("#example1").DataTable({});
      $('#example2').DataTable({
@@ -158,37 +149,18 @@
    });
  </script>
 
-  <script>
-    $('.update').on('click', function() {
-     var dataId = this.id;
-     $.ajax({
-       type: "post",
-       url: "<?= base_url('operator/daftar_ulang/update') ?>",
-       data: {
-         'id': dataId
-       },
-       dataType: "json",
-       success: function(data) {
-         $('.id').val(data.id);
-         $('.tgl').val(data.tgl);
-         $('.status').val(data.status).trigger();
-       },
-     });
-   })
-  </script>
-
-  <script>
+ <script>
     $('.delete').on('click', function(e) {
      e.preventDefault();
      var dataId = this.id;
      Swal.fire({
-       title: 'Hapus Data daftar ulang',
-       text: "Apakah anda yakin ingin data daftar ulang ini?",
+       title: 'Batalkan Pencabutan Berkas!',
+       text: "Apakah anda yakin ingin membatalkan Pencabutan berkas?",
        type: "warning",
        showCancelButton: true,
        confirmButtonColor: '#3085d6',
        cancelButtonColor: '#d33',
-       confirmButtonText: 'Ya, Hapus!'
+       confirmButtonText: 'Ya, Batalkan!'
      }).then(
        function(isConfirm) {
          if (isConfirm.value) {
@@ -199,10 +171,10 @@
                'id_pengguna': dataId
              },
              success: function(respone) {
-               window.location.href = "<?= base_url('operator/daftar_ulang') ?>";
+               window.location.href = "<?= base_url('operator/pendaftar/cabut_berkas') ?>";
              },
              error: function(request, error) {
-               window.location.href = "<?= base_url('operator/daftar_ulang') ?>";
+               window.location.href = "<?= base_url('operator/pendaftar/cabut_berkas') ?>";
              },
            });
          } else {

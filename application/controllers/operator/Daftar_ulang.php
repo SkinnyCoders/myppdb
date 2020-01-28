@@ -52,6 +52,14 @@ class Daftar_ulang extends CI_Controller
 			'status' => 'sudah'
 		];
 
+		//cek sudah daftar ulang blm
+
+		if ($this->db->get_where('daftar_ulang', ['id_peserta' =>  $id])->num_rows() > 0) {
+			$this->session->set_flashdata('msg_failed', 'Maaf, Peserta sudah melakukan daftar ulang');
+            http_response_code(500);
+            return false;
+		}
+
 		$daftar_ulang = $this->db->insert('daftar_ulang', $data);
 
 		if ($daftar_ulang) {
