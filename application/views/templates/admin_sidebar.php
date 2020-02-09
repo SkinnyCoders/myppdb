@@ -105,33 +105,33 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+<!--           <li class="nav-item">
             <a href="<?= base_url('kepsek/pendaftar') ?>" class="nav-link">
               <i class="nav-icon fa fa-home"></i>
               <p>
                 Pendaftar
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
-            <a href="<?= base_url('kepsek/pendaftar/diterima') ?>" class="nav-link">
-              <i class="nav-icon fa fa-home"></i>
+            <a href="<?= base_url('kepsek/peserta/diterima') ?>" class="nav-link">
+              <i class="nav-icon fa fa-check"></i>
               <p>
                 Peserta Diterima
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('kepsek/pendaftar/dicadangkan') ?>" class="nav-link">
-              <i class="nav-icon fa fa-home"></i>
+            <a href="<?= base_url('kepsek/peserta/dicadangkan') ?>" class="nav-link">
+              <i class="nav-icon fa fa-bookmark"></i>
               <p>
                 Peserta Dicadangkan
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('kepsek/pendaftar/ditolak') ?>" class="nav-link">
-              <i class="nav-icon fa fa-home"></i>
+            <a href="<?= base_url('kepsek/peserta/ditolak') ?>" class="nav-link">
+              <i class="nav-icon fa fa-times"></i>
               <p>
                 Peserta Ditolak
               </p>
@@ -139,20 +139,43 @@
           </li>
           
           <li class="nav-item">
-            <a href="<?= base_url('kepsek/pendaftar/daftar-ulang') ?>" class="nav-link">
-              <i class="nav-icon fa fa-home"></i>
+            <a href="<?= base_url('kepsek/peserta/daftar_ulang') ?>" class="nav-link">
+              <i class="nav-icon fa fa-undo"></i>
               <p>
                 Peserta Daftar Ulang
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('kepsek/pendaftar/ditolak') ?>" class="nav-link">
-              <i class="nav-icon fa fa-home"></i>
+            <a href="<?= base_url('kepsek/peserta/cabut_berkas') ?>" class="nav-link">
+              <i class="nav-icon fa fa-arrow-right"></i>
               <p>
-                Pembayaran
+                Peserta Cabut Berkas
               </p>
             </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Setting Akun
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="<?=base_url('kepsek/setting/profil')?>" class="nav-link">
+                  <i class="far fa-user nav-icon"></i>
+                  <p>Profil</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="<?=base_url('kepsek/setting/password')?>" class="nav-link">
+                  <i class="fas fa-key nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+            </ul>
           </li>
         <?php } elseif ($this->session->userdata('role') == 2) {
         ?>
@@ -221,10 +244,9 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="<?= base_url('admin/pendaftaran/kuota') ?>" class="nav-link">
-                  <i class="nav-icon fa fa-cog"></i>
+                  <i class="nav-icon fa fa-graduation-cap"></i>
                   <p>
                     Kouta Pendaftaran
-                    <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
                   </p>
                 </a>
               </li>
@@ -269,7 +291,7 @@
               <i class="nav-icon fa fa-user-circle"></i>
               <p>
                 Pengguna
-                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
+                
               </p>
             </a>
           </li>
@@ -280,27 +302,26 @@
               <i class="nav-icon fa fa-calendar"></i>
               <p>
                 Tahun Ajaran
-                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
               </p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="<?= base_url('admin/informasi') ?>" class="nav-link">
-              <i class="nav-icon fa fa-calendar"></i>
+              <i class="nav-icon fa fa-info"></i>
               <p>
                 Informasi
-                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
+                
               </p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="<?= base_url('admin/faq') ?>" class="nav-link">
-              <i class="nav-icon fa fa-calendar"></i>
+              <i class="nav-icon fa fa-question"></i>
               <p>
                 FAQ
-                <span class="right badge badge-danger"><i class="fa fa-cog"></i></span>
+               
               </p>
             </a>
           </li>

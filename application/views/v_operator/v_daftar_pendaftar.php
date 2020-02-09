@@ -21,6 +21,70 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
+      <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+              <div class="inner">
+                <h3><?=$rincian['onproses']?></h3>
+
+                <p>Dalam Proses</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+              <div class="inner">
+                <h3><?=$rincian['diterima']?></h3>
+
+                <p> DIterima</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-checkmark"></i>
+              </div>
+             
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+              <div class="inner">
+                <h3><?=$rincian['dicadangkan']?></h3>
+
+                <p> Dicadangkan</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bookmark"></i>
+              </div>
+              
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+              <div class="inner">
+                <h3><?=$rincian['tidakditerima']?></h3>
+
+                <p> Tidak Diterima</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-close"></i>
+              </div>
+              
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
       <div class="row">
         <!-- left column -->
         <div class="col-md-12">
@@ -38,8 +102,8 @@
                   <tr>
                     <th class="text-nowrap" style="width: 5%">No</th>
                     <th class="text-nowrap" style="width: 10%">No.Pendaftaran</th>
-                    <th class="text-nowrap" style="width: 18%">Nama</th>
-                    <th class="text-nowrap" style="width: 15%">Jalur - Program Studi</th>
+                    <th class="text-nowrap" style="width: 20%">Nama</th>
+                    <th class="text-nowrap" style="width: 20%">Jalur - Program Studi</th>
 
                     <th class="text-nowrap" style="width: 10%">Tahun Ajaran</th>
                     <th class="text-nowrap" style="width: 10%">Status</th>

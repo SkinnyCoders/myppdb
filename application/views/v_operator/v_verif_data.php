@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <div class="content-header">
@@ -27,8 +27,8 @@
                       <!-- general form elements -->
                       <div class="card card-default ">
                           <div class="card-header">
-                              <h3 class="card-title"><i class="far fa-dollar"></i> Data berkas peserta yang sudah diverifikasi</h3>
-                             <a class="btn btn-sm btn-primary float-right ml-3" href="<?=base_url('operator/verifikasi/berkas/detail')?>"><i class="fa fa-plus"></i> Verifikasi Berkas</a>
+                              <h3 class="card-title"><i class="far fa-dollar"></i> Data peserta yang sudah diverifikasi</h3>
+                              <a class="btn btn-sm btn-primary float-right ml-3" href="<?=base_url('operator/verifikasi/data/verifikasi')?>"><i class="fa fa-plus"></i> Verifikasi Data</a>
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->
@@ -43,7 +43,6 @@
                                  <th class="text-nowrap" style="width: 20%">Jalur - Program Studi</th>
                                  <th class="text-nowrap" style="width: 15%">Tahun Ajaran</th>
                                  <th class="text-nowrap" style="width: 5%">Status</th>
-                                 <!-- <th style="width: 15%">Aksi</th> -->
                                </tr>
                              </thead>
                              <tbody>
@@ -59,20 +58,15 @@
                                   <td><?=$peserta['tahun_mulai']?>/<?=$peserta['tahun_akhir']?></td>
                                   <td>
                                     <?php 
-                                    if ($peserta['status_verifikasi_berkas'] == 'belum') {
-                                     echo '<i class="fas fa-lg fa-history text-secondary my-1"></i>';
-                                    }elseif($peserta['status_verifikasi_berkas'] == 'sudah'){
+                                    if ($peserta['status_verifikasi_data'] == 'sudah') {
                                       echo '<i class="fas fa-lg fa-check text-success my-1"></i>';
                                     }else{
                                       echo '<i class="fas fa-lg fa-times text-danger my-1"></i>';
                                     }
-                                    ?>
-                                    </td>
-                                  <!-- <td><a href="<?=base_url('operator/verifikasi/berkas/detail/'.$peserta['id_peserta'])?>" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-eye"></i> Berkas</a></td> -->
+                                     ?>
+                                  </td>
                                 </tr>
-                                <?php 
-                                endforeach;
-                                 ?>
+                              <?php endforeach; ?>
                              </tbody>
                            </table>
                           </div>
@@ -89,15 +83,15 @@
   <?php $this->load->view('templates/cdn_admin'); ?>
 
   <script>
-   $(function() {
-     $("#example1").DataTable({});
-     $('#example2').DataTable({
-       "paging": true,
-       "lengthChange": false,
-       "searching": false,
-       "ordering": true,
-       "info": true,
-       "autoWidth": false,
-     });
-   });
- </script>
+  $(function() {
+    $("#example1").DataTable({});
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>

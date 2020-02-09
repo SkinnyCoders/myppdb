@@ -13,6 +13,7 @@ class Dashboard extends CI_controller
         getAuth(3);
 
         $this->load->model('m_pendaftaran');
+        $this->load->model('m_operator');
         $this->load->helper('cektahun');
     }
 
@@ -20,12 +21,12 @@ class Dashboard extends CI_controller
     {
         $data['title'] = 'Dashboard Operator';
         $data['pendaftar'] = $this->m_pendaftaran->getTotalPendaftar(getIdTahun(getTahun()));
-        $data['lengkap_data'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_data' => 'lengkap'])->num_rows();
-        $data['lengkap_berkas'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_berkas' => 'lengkap'])->num_rows();
+        $data['lengkap_data'] = $this->m_operator->getTotalLengkapData(getIdTahun(getTahun()))->num_rows();
+        $data['lengkap_berkas'] = $this->m_operator->getTotalLengkapBerkas(getIdTahun(getTahun()))->num_rows();
         $data['total_cabut'] = $this->m_pendaftaran->getTotalPencabutan(getIdTahun(getTahun()));
 
-        $data['belum_verify_data'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_data' => 'lengkap', 'status_verifikasi_data' => 'belum'])->num_rows();
-        $data['belum_verify_berkas'] = $this->db->get_where('pendaftaran', ['status_kelengkapan_berkas' => 'lengkap', 'status_verifikasi_berkas' => 'belum'])->num_rows();
+        $data['belum_verify_data'] = $this->m_operator->getBelumVerifiData(getIdTahun(getTahun()))->num_rows();
+        $data['belum_verify_berkas'] = $this->m_operator->getBelumVerifiBerkas(getIdTahun(getTahun()))->num_rows();
 
         getViews($data, 'v_operator/dashboard');
     }

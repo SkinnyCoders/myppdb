@@ -22,7 +22,8 @@ class Pendaftar extends CI_controller
     {
         $data = [
             'title' => 'Daftar Pendaftar',
-            'daftar' => $this->m_operator->getDaftarPeserta(getIdTahun(getTahun()))
+            'daftar' => $this->m_operator->getDaftarPeserta(getIdTahun(getTahun())),
+            'rincian' => $this->m_operator->rincianPendaftaran(getIdTahun(getTahun()))
         ];
 
         getViews($data, 'v_operator/v_daftar_pendaftar');
@@ -174,7 +175,6 @@ class Pendaftar extends CI_controller
                 $sisa = $this->m_peserta->cekSisaKuota($id_jurusan, getIdTahun(getTahun()));
 
                 if ($flag > $sisa) {
-                    echo 'tidak bisa';
                     //Insert Pencadangan
                     $data_cadangan = [
                         'id_pendaftaran' => $id_pendaftaran,

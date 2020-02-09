@@ -10,7 +10,7 @@
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-                          <li class="breadcrumb-item active">Pendaftar</li>
+                          <li class="breadcrumb-item active">Peserta Daftar Ulang</li>
                       </ol>
                   </div><!-- /.col -->
               </div><!-- /.row -->
@@ -26,7 +26,7 @@
                   <div class="col-md-12">
                       <div class="card">
                           <div class="card-header">
-                              <h3 class="card-title">Tabel data pendaftar</h3>
+                              <h3 class="card-title">Tabel data peserta yang telah melakukan daftar ulang</h3>
 
                           </div>
                           <!-- /.card-header -->
@@ -35,25 +35,38 @@
                                   <thead>
                                       <tr>
                                           <th class="text-nowrap" style="width: 5%">No</th>
-                                          <th class="text-nowrap" style="width: 25%">Nama</th>
+                                          <th class="text-nowrap" style="width: 20%">Nama</th>
 
                                           <th class="text-nowrap">No Pendaftaran</th>
-                                          <th class="text-nowrap">Jenis Kelamin</th>
+                                          <th class="text-nowrap">Tanggal</th>
                                           <th class="text-nowrap">Program Studi</th>
                                           <th class="text-nowrap">Jalur Pendaftaran</th>
+                                          <th class="text-nowrap">Tahun Ajaran</th>
                                           <th class="text-nowrap">Aksi</th>
                                       </tr>
                                   </thead>
                                   <tbody>
+                                    <?php 
+                                    $no = 1;
+                                    foreach ($peserta as $p):
+                                      $tahun = $p['tahun_mulai'].'/'.$p['tahun_akhir'];
+
+                                      $tgl = DateTime::createFromFormat('Y-m-d', $p['tgl'])->format('d F Y');
+
+                                     ?>
                                       <tr>
-                                          <td>2</td>
-                                          <td>Bambang</td>
-                                          <td>003243</td>
-                                          <td>Laki - Laki</td>
-                                          <td>TKJ</td>
-                                          <td>Reguler</td>
-                                          <td><a href="<?php echo base_url('kepsek/pendaftar/detail') ?>" class="btn btn-sm btn-success">Detail</a></td>
+                                          <td><?= $no++ ?></td>
+                                          <td><?= ucwords($p['nama_lengkap'])?></td>
+                                          <td><?= $p['no_pendaftaran']?></td>
+                                          <td><?= $tgl ?></td>
+                                          <td><?= ucwords($p['nama_program_studi'])?></td>
+                                          <td><?= ucwords($p['nama_jalur_pendaftaran'])?></td>
+                                          <td><?= $tahun ?></td>
+                                          <td><a href="<?php echo base_url('kepsek/peserta/detail/'.$p['id_peserta']) ?>" class="btn btn-sm btn-success">Detail</a></td>
                                       </tr>
+                                      <?php 
+                                    endforeach;
+                                       ?>
                                   </tbody>
                               </table>
                           </div>
@@ -69,20 +82,20 @@
 
   <?php $this->load->view('templates/cdn_admin'); ?>
 
-  <script src="<?= base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
+<!--   <script src="<?= base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/datatables-buttons/js/buttons.flash.min.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/datatables-buttons/js/buttons.html5.min.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
-  <script src="<?= base_url('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
+  <script src="<?= base_url('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script> -->
 
-  <!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> -->
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
   <script>
       $(document).ready(function() {
           $('#example1').DataTable({

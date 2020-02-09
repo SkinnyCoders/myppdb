@@ -19,10 +19,6 @@
     </div>
     <!-- /.content-header -->
 
-    <?php
-    $peserta = $this->m_operator->getDetailPeserta($this->uri->segment(5));
-    ?>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -32,77 +28,76 @@
             <!-- general form elements -->
             <div class="card card-default ">
               <div class="card-header">
-                <p class="card-title">
-                  <strong>No.Pendaftaran</strong> : <?= $peserta['no_pendaftaran'] ?><br>
-                  <strong>Nama Peserta</strong> : <?= ucwords($peserta['nama_lengkap']) ?><br>
-                </p>
+                <h3 class="card-title"><i class="far fa-dollar"></i>Konfirmasi verifikasi berkas</h3>
               </div>
               <div class="card-body">
-                <ul class="mailbox-attachments clearfix">
-                  <?php if (!empty($berkas['ijazah_terakhir'])) { ?>
-                    <li>
-                      <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Cari Peserta</label>
+                      <select class="form-control select2bs4" style="width: 100%" name="cari" id="cari" data-placeholder="Pilih Peserta Terdaftar">
+                        <option></option>
+                        <?php 
+                        foreach ($peserta as $p) {
+                          echo '<option value="'.$p['id_peserta'].'">'.$p['no_pendaftaran'].' - '.ucwords($p['nama_lengkap']).'</option>';
+                        }
+                          ?>
+                      </select>
+                      <small class="text-danger"><?= form_error('cari')?></small>
+                    </div>
+                  </div>
+                </div>
+                <hr>
 
-                      <div class="mailbox-attachment-info">
-                        <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['ijazah_terakhir']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> IJAZAH</a>
-                      </div>
-                    </li>
-                  <?php }
-                  if (!empty($berkas['skhun'])) { ?>
-                    <li>
-                      <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                <section class="mt-3" id="data-berkas">
+                  <ul class="mailbox-attachments clearfix">
+                      <li id="ijazah" style="display: none;">
+                        <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                      <div class="mailbox-attachment-info">
-                        <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['skhun']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SKHUN</a>
-                      </div>
-                    </li>
-                  <?php }
-                  if (!empty($berkas['kartu_keluarga'])) { ?>
-                    <li>
-                      <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                        <div class="mailbox-attachment-info">
+                          <a id="berkas_ijazah" href="#" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> IJAZAH</a>
+                        </div>
+                      </li>
+                      <li id="skhun" style="display: none;">
+                        <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                      <div class="mailbox-attachment-info">
-                        <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['kartu_keluarga']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Kartu Keluarga</a>
+                        <div class="mailbox-attachment-info">
+                          <a id="berkas_skhun" href="#" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SKHUN</a>
+                        </div>
+                      </li>
+                      <li id="kk" style="display: none;">
+                        <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                      </div>
-                    </li>
-                  <?php }
-                  if (!empty($berkas['keterangan_sehat'])) { ?>
-                    <li>
-                      <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
+                        <div class="mailbox-attachment-info">
+                          <a id="berkas_kk" href="" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Kartu Keluarga</a>
 
-                      <div class="mailbox-attachment-info">
-                        <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['keterangan_sehat']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SK SEHAT</a>
+                        </div>
+                      </li>
+                      <li id="sk_sehat" style="display: none;">
+                        <span class="mailbox-attachment-icon"><i style="color:firebrick" class="fa fa-file-pdf"></i></span>
 
-                      </div>
-                    </li>
-                  <?php }
-                  if (!empty($berkas['pas_foto'])) { ?>
-                    <li>
-                      <span class="mailbox-attachment-icon has-img"><img class="img-file" src="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['pas_foto']) ?>" alt="Attachment"></span>
+                        <div class="mailbox-attachment-info">
+                          <a id="berkas_sk_sehat" href="" target="_blank" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> SK SEHAT</a>
 
-                      <div class="mailbox-attachment-info">
-                        <a href="<?= base_url('assets/uploads/berkas_peserta/' . $berkas['pas_foto']) ?>" target="_blank" class="mailbox-attachment-name"><i class="fa fa-camera"></i> FOTO</a>
+                        </div>
+                      </li>
+                      <li id="foto" style="display: none;">
+                        <span class="mailbox-attachment-icon has-img"><img id="img_foto" class="img-file" src="" alt="Attachment"></span>
 
-                      </div>
-                    </li>
-                  <?php } ?>
-                </ul>
+                        <div class="mailbox-attachment-info">
+                          <a id="berkas_foto" href="" target="_blank" class="mailbox-attachment-name"><i class="fa fa-camera"></i> FOTO</a>
+
+                        </div>
+                      </li>
+                  </ul>
+                </section>
               </div>
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <?php
-                if ($peserta['status_verifikasi_berkas'] == 'sudah') {
-                  $disable = 'none';
-                ?>
-                  <div class="row float-right" id="notif-verif">
-                    <small class="text-muted">Data berkas ini sudah diverifikasi klik <button id="change" class="btn btn-xs btn-warning">Disini</button> untuk mengubah</small>
-                  </div>
-                <?php }else{ $disable = ''; } ?>
-                <div class="float-right" id="btn-verif" style="display: <?= $disable ?>">
-                  <a href="javascript:void(0)" id="<?= $peserta['id_pendaftaran'] ?>" class="btn btn-danger float-right ml-4 tolak">Tolak!</a>
-                  <a href="javascript:void(0)" id="<?= $peserta['id_pendaftaran'] ?>" class=" btn btn-success float-right verif">Verifikasi!</a>
+                <div class="float-right" id="btn-verif" style="display: none;">
+                  <a href="javascript:void(0)" id="" class="btn btn-danger float-right ml-4 tolak">Tolak!</a>
+                  <a href="javascript:void(0)" id="" class=" btn btn-success float-right verif">Verifikasi!</a>
                 </div>
               </div>
             </div>
@@ -122,6 +117,60 @@
       $('#notif-verif').hide();
     })
   </script>
+
+  <script>
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    })
+  </script>
+
+  <script>
+  $('#cari').on('change', function(){
+    var id_berkas = $('#cari').val();
+
+    $.ajax({
+      type : "post",
+      url : "<?=base_url()?>operator/verifikasi/berkas/get_berkas",
+      data : {id_berkas : id_berkas},
+      dataType : "json",
+      success : function(data){
+        $('#btn-verif').show();
+        $('.tolak').attr('id', data.id_pendaftaran);
+        $('.verif').attr('id', data.id_pendaftaran);
+
+        if (data.ijazah != '') {
+          $('#ijazah').show();
+          $('#berkas_ijazah').attr('href', data.ijazah);
+        }
+
+        if (data.skhun !== '') {
+          $('#skhun').show();
+          $('#berkas_skhun').attr('href', data.skhun);
+        }
+
+        if (data.kk !== '') {
+          $('#kk').show();
+          $('#berkas_kk').attr('href', data.kk);
+        }
+
+        if (data.sk_sehat !== '') {
+          $('#sk_sehat').show();
+          $('#berkas_sk_sehat').attr('href', data.sk_sehat);
+        }
+
+        if (data.foto !== '') {
+          $('#foto').show();
+          $('#berkas_foto').attr('href', data.foto);
+          $('#img_foto').attr('src', data.foto);
+        }
+      } 
+    })
+  })
+</script>
 
   <script>
     $('.tolak').on('click', function(e) {

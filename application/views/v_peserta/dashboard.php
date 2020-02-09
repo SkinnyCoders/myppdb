@@ -21,6 +21,14 @@
     <div class="content">
       <div class="container-fluid">
 
+        <?php if ($daftar_ulang) : ?>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Selamat</h4>
+                Anda sudah berhasil melakukan Daftar Ulang dan sudah diterima sebagai siswa
+          </div>
+        <?php endif; ?>
+
         <?php if (!empty($cabut)) { ?>
           <div class="row">
             <div class="col-md-12">
@@ -40,7 +48,7 @@
                   <div class="callout callout-success">
                     <h4><i style="color: green;" class="fa fa-check"></i> Selamat Anda diterima!</h4>
 
-                    <p>Silahkan melakukan daftar ulang dengan melunasi biaya daftar ulang, dengan datang langsung kesekolah serta membawa bukti bahwa peserta telah diterima untuk ditunjukan kepada panitia.</p>
+                    <p>Silahkan melakukan daftar ulang dengan melunasi biaya masuk, dengan datang langsung kesekolah serta membawa bukti bahwa peserta telah diterima untuk ditunjukan kepada panitia.</p>
 
                     <a href="<?= base_url('peserta/generate_kartu/pdf') ?>" class="btn btn-sm btn-info">Download Bukti</a>
                   </div>
@@ -197,6 +205,41 @@
             </ul>
           </div>
         </div>
+
+        <div class="row my-3 mt-4">
+          <div class="col-md-12">
+            <h5 class="font-weight-bold text-dark">Biaya Masuk</h5>
+            <table id="example1" class="table border-1" style="background-color: #fff">
+              <thead style="background-color: maroon; color: #fff">
+                <tr>
+                  <th>Biaya Masuk</th>
+                  <th>Batas Pembayaran</th>
+                  <th>Sejumlah</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php 
+                $total = 0;
+                foreach ($biaya as $b) :
+                  $tgl = DateTime::createFromFormat('Y-m-d', $b['batas_pembayaran'])->format('d F Y');
+                  $total += $b['jumlah_biaya_masuk'] ;
+                 ?>
+                <tr>
+                  <td><?= ucwords($b['jenis_biaya_masuk'])?></td>
+                  <td><?= $tgl ?></td>
+                  <td>Rp. <?= number_format($b['jumlah_biaya_masuk'])?></td>
+                </tr>
+                <?php
+              endforeach;
+                ?>
+                <tr>
+                  <td colspan="2" class="text-center"><strong>-Total-</strong></td>
+                  <td>Rp. <?= number_format($total)?></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -219,6 +262,18 @@
   <script src="<?= base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script>
 
   <script>
+    $(function() {
+     $("#example1").DataTable({});
+     $('#example2').DataTable({
+       "paging": true,
+       "lengthChange": false,
+       "searching": false,
+       "ordering": true,
+       "info": true,
+       "autoWidth": false,
+     });
+   });
+
     $(document).ready(function() {
       /* ChartJS
        * -------

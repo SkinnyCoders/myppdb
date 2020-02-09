@@ -29,7 +29,9 @@ class Dashboard extends CI_controller
             'pencadangan' => $this->m_peserta->cekPencadangan($id_peserta),
             'pendaftaran' => $this->m_peserta->getPendaftaran($id_peserta),
             'seleksi' => $this->db->get_where('token_seleksi', ['id_peserta' => $id_peserta])->result_array(),
-            'cabut' => $cekCabut
+            'cabut' => $cekCabut,
+            'biaya' => $this->m_peserta->getBiaya($id_peserta),
+            'daftar_ulang' => $this->m_peserta->cekDaftarUlang($id_peserta)
         ];
 
         $id_prodi = $data['pendaftaran']['id_program_studi'];

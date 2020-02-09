@@ -69,4 +69,56 @@ class M_operator extends CI_Model
 	{
 		return $this->db->query("SELECT pendaftaran.id_pendaftaran, peserta.id_peserta, pendaftaran.no_pendaftaran, data_diri.nama_lengkap,pendaftaran.status_verifikasi_data, pendaftaran.status_verifikasi_berkas FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri WHERE pendaftaran.id_jalur_pendaftaran = $id_jalur AND pendaftaran.id_program_studi = $id_jurusan AND status_verifikasi_data='sudah' AND status_verifikasi_berkas='sudah' AND status_kelulusan IS NULL AND pendaftaran.id_tahun_ajaran = $id_tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran)")->result_array();
 	}
+
+	public function rincianPendaftaran($tahun){
+		$totalPendaftar = $this->db->query("SELECT pendaftaran.`id_pendaftaran` FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND id_tahun_ajaran =$tahun")->num_rows();
+
+		$totalDiterima = $this->db->query("SELECT `no_pendaftaran` FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE `status_kelulusan` = 'lulus' AND `id_tahun_ajaran` = $tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran)")->num_rows();
+
+		$totalTidak = $this->db->query("SELECT `no_pendaftaran` FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE `status_kelulusan` = 'tidak_lulus' AND `id_tahun_ajaran` = $tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran)")->num_rows();
+
+		$totalOnProses = $this->db->query("SELECT `no_pendaftaran` FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE `status_kelulusan` IS NULL AND `id_tahun_ajaran` = $tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran)")->num_rows();
+
+		$totalCadangan = $this->db->query("SELECT * FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=peserta.id_pendaftaran) AND pendaftaran.id_tahun_ajaran = $tahun AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran)")->num_rows();
+
+		$totalCabut = $this->db->query("SELECT `id_pencabutan` FROM `pencabutan` JOIN pendaftaran ON pendaftaran.id_pendaftaran=pencabutan.id_pendaftaran JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran WHERE pendaftaran.id_tahun_ajaran = $tahun")->num_rows();
+
+		$totalDaftarUlang = $this->db->query("SELECT `id_daftar_ulang` FROM `daftar_ulang` JOIN peserta ON peserta.id_peserta=daftar_ulang.id_peserta JOIN pendaftaran ON pendaftaran.id_pendaftaran=peserta.id_pendaftaran WHERE pendaftaran.id_tahun_ajaran = $tahun")->num_rows();
+
+		$data = [
+			'diterima' => $totalDiterima,
+			'dicadangkan' => $totalCadangan,
+			'onproses' => $totalOnProses,
+			'tidakditerima' => $totalTidak,
+			'pendaftar' => $totalPendaftar,
+			'pencabutan' => $totalCabut,
+			'daftar_ulang' => $totalDaftarUlang
+		];
+
+		return $data;
+	}
+
+	public function getPesertaVerifData($id_tahun){
+		return $this->db->query("SELECT pendaftaran.no_pendaftaran, data_diri.nama_lengkap, program_studi.nama_program_studi,jalur_pendaftaran.nama_jalur_pendaftaran, pendaftaran.status_verifikasi_data,tahun_ajaran.tahun_mulai,tahun_ajaran.tahun_akhir FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi JOIN jalur_pendaftaran ON jalur_pendaftaran.id_jalur_pendaftaran=pendaftaran.id_jalur_pendaftaran JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran=pendaftaran.id_tahun_ajaran WHERE pendaftaran.status_kelengkapan_data = 'lengkap' AND pendaftaran.status_verifikasi_data != 'belum' AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND pendaftaran.`id_tahun_ajaran` = $id_tahun")->result_array();
+	}
+
+	public function getPesertaVerifBerkas($id_tahun){
+		return $this->db->query("SELECT pendaftaran.no_pendaftaran, data_diri.nama_lengkap, program_studi.nama_program_studi,jalur_pendaftaran.nama_jalur_pendaftaran, pendaftaran.status_verifikasi_berkas,tahun_ajaran.tahun_mulai,tahun_ajaran.tahun_akhir FROM `pendaftaran` JOIN peserta ON peserta.id_pendaftaran=pendaftaran.id_pendaftaran JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi JOIN jalur_pendaftaran ON jalur_pendaftaran.id_jalur_pendaftaran=pendaftaran.id_jalur_pendaftaran JOIN tahun_ajaran ON tahun_ajaran.id_tahun_ajaran=pendaftaran.id_tahun_ajaran WHERE pendaftaran.status_kelengkapan_berkas = 'lengkap' AND pendaftaran.status_verifikasi_berkas != 'belum' AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND pendaftaran.`id_tahun_ajaran` = $id_tahun")->result_array();
+	}
+
+	public function getBelumVerifiData($id_tahun){
+		return $this->db->query("SELECT pendaftaran.`id_pendaftaran` FROM `pendaftaran` WHERE `status_kelengkapan_data` = 'lengkap' AND `status_verifikasi_data` = 'belum' AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran) AND pendaftaran.id_tahun_ajaran = $id_tahun");
+	}
+
+	public function getBelumVerifiBerkas($id_tahun){
+		return $this->db->query("SELECT pendaftaran.`id_pendaftaran` FROM `pendaftaran` WHERE `status_kelengkapan_berkas` = 'lengkap' AND `status_verifikasi_berkas` = 'belum' AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran) AND pendaftaran.id_tahun_ajaran =  $id_tahun");
+	}
+
+	public function getTotalLengkapBerkas($id_tahun){
+		return $this->db->query("SELECT pendaftaran.id_pendaftaran FROM `pendaftaran` WHERE `status_kelengkapan_berkas` = 'lengkap' AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran) AND pendaftaran.id_tahun_ajaran = $id_tahun");
+	}
+
+	public function getTotalLengkapData($id_tahun){
+		return $this->db->query("SELECT pendaftaran.id_pendaftaran FROM `pendaftaran` WHERE `status_kelengkapan_data` = 'lengkap' AND NOT EXISTS (SELECT * FROM pencabutan WHERE pencabutan.id_pendaftaran=pendaftaran.id_pendaftaran) AND NOT EXISTS (SELECT * FROM pencadangan WHERE pencadangan.id_pendaftaran=pendaftaran.id_pendaftaran) AND pendaftaran.id_tahun_ajaran = $id_tahun");
+	}
 }

@@ -13,6 +13,7 @@ class Dashboard extends CI_controller
         getAuth(1);
 
         $this->load->model('m_pendaftaran');
+        $this->load->model('m_operator');
         $this->load->helper('cektahun');
     }
 
@@ -20,9 +21,7 @@ class Dashboard extends CI_controller
     {
         $data['title'] = 'Dashboard Kepala Sekolah';
         $data['pendaftar'] = $this->m_pendaftaran->getTotalPendaftar(getIdTahun(getTahun()));
-        $data['diterima'] = $this->m_pendaftaran->getPesertaDiterima(getIdTahun(getTahun()))->num_rows();
-
-        var_dump($data['diterima']);
+        $data['rincian'] = $this->m_operator->rincianPendaftaran(getIdTahun(getTahun()));
 
         getViews($data, 'v_kepsek/dashboard');
     }
@@ -34,6 +33,11 @@ class Dashboard extends CI_controller
     }
 
     public function get_dataChart(){
+        $data_rincian = $this->m_operator->rincianPendaftaran(getIdTahun(getTahun()));
+
+        $data = ['total' => [$data_rincian['pendaftar'],$data_rincian['diterima'], $data_rincian['tidakditerima'], $data_rincian['dicadangkan'], $data_rincian['daftar_ulang']]];
+
+        echo json_encode($data);
 
     }
 

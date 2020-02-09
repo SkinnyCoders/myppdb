@@ -38,16 +38,20 @@ class Biaya_masuk extends CI_Controller
         $this->form_validation->set_rules('jalur', 'Jalur Pendaftaran', 'required|trim', ['required' => '{field} tidak boleh kosong']);
         $this->form_validation->set_rules('jurusan', 'Program Studi', 'required|trim', ['required' => '{field} tidak boleh kosong']);
         $this->form_validation->set_rules('jumlah', 'Jumlah Biaya', 'required|trim|numeric', ['required' => '{field} tidak boleh kosong', 'numeric' => '{field} hanya berupa angka']);
+        $this->form_validation->set_rules('batas', 'Batas Pembayaran', 'required', ['required' => '{field} tidak boleh kosong']);
 
         if ($this->form_validation->run() == FALSE) {
             getViews($data, 'v_admin/v_add_biaya');
         }else{
+            $batas = DateTime::createFromFormat('m/d/Y', $this->input->post('batas'))->format('Y-m-d');
+
             $data = [
                 'id_jalur_pendaftaran' => $this->input->post('jalur'),
                 'id_program_studi' => $this->input->post('jurusan'),
                 'id_tahun_ajaran' => $this->input->post('tahun_ajaran'),
                 'jenis_biaya_masuk' => $this->input->post('biaya', true),
-                'jumlah_biaya_masuk' => $this->input->post('jumlah', true)
+                'jumlah_biaya_masuk' => $this->input->post('jumlah', true),
+                'batas_pembayaran' => $batas
             ];
 
             if (insertData('biaya_masuk', $data)) {
@@ -68,16 +72,20 @@ class Biaya_masuk extends CI_Controller
         $this->form_validation->set_rules('jalur', 'Jalur Pendaftaran', 'required|trim', ['required' => '{field} tidak boleh kosong']);
         $this->form_validation->set_rules('jurusan', 'Program Studi', 'required|trim', ['required' => '{field} tidak boleh kosong']);
         $this->form_validation->set_rules('jumlah', 'Jumlah Biaya', 'required|trim|numeric', ['required' => '{field} tidak boleh kosong', 'numeric' => '{field} hanya berupa angka']);
+        $this->form_validation->set_rules('batas', 'Batas Pembayaran', 'required', ['required' => '{field} tidak boleh kosong']);
 
         if ($this->form_validation->run() == FALSE) {$this->session->set_flashdata('msg_failed', 'Maaf, data gagal diperbarui');
                 redirect('admin/pendaftaran/biaya_masuk');getViews($data, 'v_admin/v_add_biaya');
         }else{
+            $batas = DateTime::createFromFormat('m/d/Y', $this->input->post('batas'))->format('Y-m-d');
+
             $data = [
                 'id_jalur_pendaftaran' => $this->input->post('jalur'),
                 'id_program_studi' => $this->input->post('jurusan'),
                 'id_tahun_ajaran' => $this->input->post('tahun_ajaran'),
                 'jenis_biaya_masuk' => $this->input->post('biaya', true),
-                'jumlah_biaya_masuk' => $this->input->post('jumlah', true)
+                'jumlah_biaya_masuk' => $this->input->post('jumlah', true),
+                'batas_pembayaran' => $batas
             ];
 
             $update = $this->db->update('biaya_masuk', $data, ['id_biaya_masuk' => $id_biaya]);

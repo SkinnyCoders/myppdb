@@ -48,7 +48,7 @@
               <div class="icon">
                 <i class="ion ion-checkmark"></i>
               </div>
-              <a href="<?= base_url('kepsek/pendaftar/diterima') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('operator/verifikasi/data') ?>" class="small-box-footer">Lihat detail <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -93,7 +93,7 @@
             <div class="alert alert-warning alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h5><i class="icon fas fa-exclamation-triangle"></i> Verifikasi Data</h5>
-                  Ada <strong><?=$belum_verify_data?></strong> peserta yang menunggu untuk diverifikasi datanya!<br> <a style="text-decoration: none;" href="<?=base_url('operator/verifikasi/data')?>" class="btn btn-xs btn-primary">Verifikasi</a>
+                  Ada <strong><?=$belum_verify_data?></strong> peserta yang menunggu untuk diverifikasi datanya!<br> <a style="text-decoration: none;" href="<?=base_url('operator/verifikasi/data/verifikasi')?>" class="btn btn-xs btn-primary">Verifikasi</a>
                 </div>
           </div>
           <?php endif; ?>
@@ -104,7 +104,7 @@
             <div class="alert alert-warning alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                   <h5><i class="icon fas fa-exclamation-triangle"></i> Verifikasi Berkas</h5>
-                  Ada <strong><?=$belum_verify_berkas?></strong> peserta yang menunggu untuk diverifikasi berkasnya!<br> <a style="text-decoration: none;" href="<?=base_url('operator/verifikasi/berkas')?>" class="btn btn-xs btn-primary">Verifikasi</a>
+                  Ada <strong><?=$belum_verify_berkas?></strong> peserta yang menunggu untuk diverifikasi berkasnya!<br> <a style="text-decoration: none;" href="<?=base_url('operator/verifikasi/berkas/detail')?>" class="btn btn-xs btn-primary">Verifikasi</a>
                 </div>
           </div>
           <?php endif; ?>

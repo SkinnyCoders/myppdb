@@ -23,6 +23,10 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/select2/css/select2.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
+
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
 </head>
 
@@ -100,7 +104,8 @@ if (!empty($pilih_jurusan['id_program_studi'])) {
           	<div class="col-md-6">
           		<div class="form-group">
 		            <label for="jurusan">Program Studi (jurusan) <span class="text-danger">*</span></label>
-		            <select class="form-control" name="jurusan" id="jurusan">
+		            <select class="form-control select2bs4" name="jurusan" data-placeholder="Pilih Jurusan" id="jurusan">
+                  <option></option>
 		            	<?php foreach ($jurusan as $j) : ?>
 		            		<option value="<?=$j['id_program_studi']?>" <?php if($j['id_program_studi'] == $pilih) { echo 'selected'; } ?>><?=$j['nama_program_studi']?></option>
 		            	<?php endforeach; ?>
@@ -111,7 +116,7 @@ if (!empty($pilih_jurusan['id_program_studi'])) {
           	<div class="col-md-6">
           		<div class="form-group">
 		            <label for="jalur">Jalur Pendaftaran <span class="text-danger">*</span></label>
-		            <select class="form-control jal" name="jalur" id="jalur">
+		            <select class="form-control jal select2bs4" data-placeholder="Pilih Jalur Pendaftaran" name="jalur" id="jalur">
 		            	
 		            </select>
 		            <small class="text-danger"><?= form_error('jalur') ?></small>
@@ -226,6 +231,9 @@ if (!empty($pilih_jurusan['id_program_studi'])) {
 <!-- Toastr -->
 <script src="<?= base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
 
+<!-- Select2 -->
+<script src="<?= base_url('assets/plugins/select2/js/select2.full.min.js') ?>"></script>
+
 <!-- bootstrap datepicker -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
@@ -235,6 +243,16 @@ if (!empty($pilih_jurusan['id_program_studi'])) {
       $('#datepicker').datepicker({
         autoclose: true
       })
+    })
+  </script>
+
+  <script>
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
     })
   </script>
 
@@ -276,7 +294,7 @@ $(function() {
         async : false,
         dataType : "json",
         success : function(data){
-          var html = '';
+          var html = '<option></option>';
           var i;
 
           for(i=0; i<data.length; i++){

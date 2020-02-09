@@ -5,12 +5,9 @@ class Generate_kartu extends CI_Controller {
  
 	public function pdf(){
 
-	    $data['users']=array(
-			array('firstname'=>'Agung','lastname'=>'Setiawan','email'=>'ag@setiawan.com'),
-			array('firstname'=>'Hauril','lastname'=>'Maulida Nisfar','email'=>'hm@setiawan.com'),
-			array('firstname'=>'Akhtar','lastname'=>'Setiawan','email'=>'akh@setiawan.com'),
-			array('firstname'=>'Gitarja','lastname'=>'Setiawan','email'=>'git@setiawan.com')
-		);
+		$this->load->model('m_peserta');
+
+		$data['peserta'] = $this->m_peserta->getDataKartu($this->session->userdata('id_peserta'));
 
 	    $this->load->library('pdf');
 

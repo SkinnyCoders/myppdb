@@ -19,7 +19,7 @@
             <!-- End Name School Title -->
 
             <div class="col-md-12">
-                <img style="width: 100%; height: 300px; background-color: #000; background-size: contain;" src="<?= base_url('assets/img/uploads/6bde84f104f1a7d9e3328da96baffa87.jpg')?>">
+                <img style="width: 100%; height: 300px; background-color: #000; background-size: contain;" src="<?= base_url('assets/img/uploads/'.$jurusan['foto_program_studi'])?>">
                 <h6 class="text-danger font-weight-bold my-0 mt-4">
                     Deskripsi
                 </h6>
@@ -74,7 +74,7 @@
           <!--   <div class="row mt-3"> -->
                 <div class="col-md-12 mt-3">
                         <div class="pr-2">
-                            <a href="" class="btn btn-flat btn-danger m-1">Daftar Sekarang</a>   
+                            <a href="<?=base_url('registrasi/'.$jurusan['id_program_studi'])?>" class="btn btn-flat btn-danger m-1">Daftar Sekarang</a>   
                         </div>
                 </div>
         <!--     </div> -->

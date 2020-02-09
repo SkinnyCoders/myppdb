@@ -81,10 +81,29 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="jumlah">Jumlah Biaya</label>
-                    <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah Rp." value="<?php echo set_value('jumlah'); ?>">
-                    <small class="text-danger mt-2"><?= form_error('jumlah') ?></small>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="jumlah">Jumlah Biaya</label>
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah Rp." value="<?php echo set_value('jumlah'); ?>">
+                        <small class="text-danger mt-2"><?= form_error('jumlah') ?></small>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Batas Pembayaran</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="far fa-calendar-alt"></i>
+                            </span>
+                          </div>
+                          <input type="text" name="batas" class="form-control float-right" id="datepicker">
+                        </div>
+                        <!-- /.input group -->
+                        <small class="text-danger mt-2"><?= form_error('batas') ?></small>
+                      </div>                    
+                    </div>
                   </div>
                   <!--  <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -115,6 +134,18 @@
     //Initialize Select2 Elements
     $('.select2bs4').select2({
       theme: 'bootstrap4'
+    })
+  </script>
+
+  <!-- bootstrap datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+  <script>
+    $(function() {
+      //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true
+      })
     })
   </script>
 

@@ -41,7 +41,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3><?=$diterima?></h3>
+                <h3><?=$rincian['diterima']?></h3>
 
                 <p>Peserta Diterima</p>
               </div>
@@ -56,7 +56,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>44</h3>
+                <h3><?=$rincian['dicadangkan']?></h3>
 
                 <p>Peserta Dicadangkan</p>
               </div>
@@ -71,7 +71,7 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?=$rincian['tidakditerima']?></h3>
 
                 <p>Peserta Tidak Diterima</p>
               </div>
@@ -148,41 +148,37 @@
 
   <script>
     $(document).ready(function() {
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-
-      //-------------
-      //- PIE CHART -
-      //-------------
-      // Get context with jQuery - using jQuery's .get() method.
-      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-      var donutData = {
-        labels: [
-          'Pendaftar',
-          'Diterima',
-          'Ditolak',
-          'Dicadangkan',
-          'Daftar Ulang'
-        ],
-        datasets: [{
-          data: [1000, 500, 100, 380, 20],
-          backgroundColor: ['#00c0ef', '#00a65a', '#f56954', '#f39c12', '#eaeaea'],
-        }]
-      }
       var pieOptions = {
         maintainAspectRatio: false,
         responsive: true,
       }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
-      var pieChart = new Chart(pieChartCanvas, {
-        type: 'pie',
-        data: donutData,
-        options: pieOptions
-      })
-    })
+            $.ajax({
+                type : 'POST',
+                url : "<?=base_url('kepsek/dashboard/get_dataChart')?>",
+                dataType : "json",
+                success: function(data){
+
+                    var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+                    var pieChart = new Chart(pieChartCanvas, {
+                      type: 'pie',
+                      data: {
+                        labels: [
+                          'Pendaftar',
+                          'Diterima',
+                          'Ditolak',
+                          'Dicadangkan',
+                          'Daftar Ulang'
+                        ],
+                        datasets: [{
+                          data: data.total,
+                          backgroundColor: ['#00c0ef', '#00a65a', '#f56954', '#f39c12', '#eaeaea'],
+                        }]
+                      },
+                      options: pieOptions
+                    });
+                }
+            });
+        });
   </script>
 
   <script>
