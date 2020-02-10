@@ -127,17 +127,33 @@
                 Tes Seleksi
                 <?php
                 foreach ($seleksi as $s) {
-                  $tes[] = in_array('false', $s);
+                  if (in_array('fasle', $s)) {
+                    $tes = TRUE;
+                  }else{
+                    $tes = FALSE;
+                  }
+                }
+
+                foreach ($hasil as $h) {
+                  if (in_array('lulus', $h)) {
+                    $status_lulus = TRUE;
+                  }else{
+                    $status_lulus = FALSE;
+                  }
                 }
 
                 if (!empty($seleksi)) {
-
-                  if ($tes == false) {
-                    echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                  if ($tes == FALSE) {
+                    if ($status_lulus == FALSE) {
+                      echo '<i class="fas fa-lg fa-times text-danger float-right my-1"></i>';
+                    }else{
+                      echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                    }
                   } else {
-                    echo '<i class="fas fa-lg fa-times text-secondary float-right my-1"></i>';
+                    echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
                   } ?>
                 <?php
+                  
                 } else {
                 ?>
                   <i class="fas fa-lg fa-history text-secondary float-right my-1"></i>
