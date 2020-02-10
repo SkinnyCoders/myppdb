@@ -135,7 +135,7 @@
                   if ($tes == false) {
                     echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
                   } else {
-                    echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
+                    echo '<i class="fas fa-lg fa-times text-secondary float-right my-1"></i>';
                   } ?>
                 <?php
                 } else {

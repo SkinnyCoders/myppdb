@@ -24,6 +24,12 @@ class Data_berkas extends CI_controller
         $id_pendaftaran = $pendaftaran['id_pendaftaran'];
         $cekCabut = $this->db->get_where('pencabutan', ['id_pendaftaran' => $id_pendaftaran])->row_array();
 
+        if ($data['berkas'] !== NULL) {
+            if (!in_array(NULL, $data['berkas'])) {
+                $this->m_peserta->updateKelengkapanBerkas($id_pendaftaran);
+            }
+        }
+
         getViews($data, 'v_peserta/v_data_berkas');
 
         if (isset($_POST['uploads'])) {
