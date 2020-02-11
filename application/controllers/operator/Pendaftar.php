@@ -274,7 +274,7 @@ class Pendaftar extends CI_controller
     }
 
     public function rekap(){
-        $data['rekap'] = $this->m_operator->getRekap();
+        $data['rekap'] = $this->m_operator->getRekap(getIdTahun(getTahun()));
         $data['tahun'] = $this->db->get_where('tahun_ajaran', ['id_tahun_ajaran' => getIdTahun(getTahun())])->row_array();
 
         $tahun_ajaran = $data['tahun']['tahun_mulai'].'/'.$data['tahun']['tahun_akhir'];
@@ -282,7 +282,7 @@ class Pendaftar extends CI_controller
         $this->load->library('pdf');
 
         $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "rekap_peserta_tahun_ajaran_".$tahun_ajaran.".pdf";
+        $this->pdf->filename = "rekap_peserta.pdf";
         $this->pdf->load_view('v_operator/v_rekap_peserta', $data);
     }
 }

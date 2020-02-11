@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kartu Diterima</title>
+  <title>Rekap Peserta Tahun Ajaran <?=$tahun['tahun_mulai']?>/<?=$tahun['tahun_akhir']?></title>
   <style type="text/css">
     .table-me{
       font-size: 12px;
