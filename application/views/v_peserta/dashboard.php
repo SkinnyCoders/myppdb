@@ -144,16 +144,19 @@
 
                 if (!empty($seleksi)) {
                   if ($tes == FALSE) {
-                    if ($status_lulus == FALSE) {
-                      echo '<i class="fas fa-lg fa-times text-danger float-right my-1"></i>';
-                    }else{
-                      echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                    if (!empty($hasil)) {
+                      if ($status_lulus == FALSE) {
+                        echo '<i class="fas fa-lg fa-times text-danger float-right my-1"></i>';
+                      }else{
+                        echo '<i class="fas fa-lg fa-check text-success float-right my-1"></i>';
+                      }
+                    } else {
+                      echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
                     }
                   } else {
                     echo '<i class="fas fa-lg fa-history text-secondary float-right my-1"></i>';
                   } ?>
                 <?php
-                  
                 } else {
                 ?>
                   <i class="fas fa-lg fa-history text-secondary float-right my-1"></i>

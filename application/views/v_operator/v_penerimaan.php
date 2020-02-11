@@ -149,7 +149,7 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="submit" name="simpan" class="btn btn-primary">Terima Peserta</button>
+                            <button type="submit" name="simpan" class="btn btn-primary terima">Terima Peserta</button>
                             </form>
                         </div>
                     </div>
@@ -258,5 +258,5 @@
 
             }
         });
-    })
+    });
 </script>

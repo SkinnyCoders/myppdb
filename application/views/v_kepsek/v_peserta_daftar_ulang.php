@@ -107,8 +107,35 @@
               "autoWidth": false,
               dom: 'Bfrtip',
               buttons: [
-                  'copy', 'csv', 'excel', 'pdf', 'print'
-              ],
+                {
+                  extend: 'copy',
+                  text: 'Copy',
+                  exportOptions: {
+                    columns: [0,1, 2, 3,4,5,6],
+                  }
+                },
+                {
+                  extend: 'print',
+                  text: 'Print',
+                  exportOptions: {
+                    columns: [0,1, 2, 3,4,5,6],
+                  }
+                },
+                {
+                  extend: 'pdf',
+                  text: 'PDF',
+                  exportOptions: {
+                    columns: [0,1, 2, 3,4,5,6],
+                  }
+                },
+                {
+                  extend: 'excel',
+                  text: 'Excel',
+                  exportOptions: {
+                    columns: [0,1, 2, 3,4,5,6],
+                  }
+                }
+              ]
 
           });
       });
