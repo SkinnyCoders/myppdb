@@ -84,6 +84,18 @@
           </div>
           <!-- ./col -->
         </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-primary alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-download"></i> Download Rekap</h4>
+                Download rekap peserta PPDB SMK Muhammadiyah Mlati
+                <a href="<?=base_url('operator/pendaftar/rekap')?>" style="color: #000; text-decoration: none;" class="btn btn-default ml-3">Download</a>
+          </div>
+        </div>
+      </div>
+
         <!-- /.row -->
       <div class="row">
         <!-- left column -->
