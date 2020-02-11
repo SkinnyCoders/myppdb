@@ -200,7 +200,7 @@ class m_peserta extends CI_model
     }
 
     public function getDataKartu($id_peserta){
-        return $this->db->query("SELECT pendaftaran.no_pendaftaran, data_diri.nama_lengkap,data_diri.nisn,data_diri.alamat_rumah, program_studi.nama_program_studi, data_diri.tempat_lahir,data_diri.tgl_lahir,data_diri.jenis_kelamin,data_berkas.pas_foto FROM `peserta` JOIN pendaftaran ON pendaftaran.id_pendaftaran=peserta.id_pendaftaran JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi JOIN data_berkas ON data_berkas.id_berkas=peserta.id_berkas WHERE peserta.id_peserta=$id_peserta")->row_array();
+        return $this->db->query("SELECT jalur_pendaftaran.nama_jalur_pendaftaran, pendaftaran.no_pendaftaran, data_diri.nama_lengkap,data_diri.nisn,data_diri.alamat_rumah, program_studi.nama_program_studi, data_diri.tempat_lahir,data_diri.tgl_lahir,data_diri.jenis_kelamin,data_berkas.pas_foto FROM `peserta` JOIN pendaftaran ON pendaftaran.id_pendaftaran=peserta.id_pendaftaran JOIN data_diri ON data_diri.id_data_diri=peserta.id_data_diri JOIN jalur_pendaftaran ON jalur_pendaftaran.id_jalur_pendaftaran=pendaftaran.id_jalur_pendaftaran JOIN program_studi ON program_studi.id_program_studi=pendaftaran.id_program_studi JOIN data_berkas ON data_berkas.id_berkas=peserta.id_berkas WHERE peserta.id_peserta=$id_peserta")->row_array();
     }
 
     public function cekDaftarUlang($id_peserta){

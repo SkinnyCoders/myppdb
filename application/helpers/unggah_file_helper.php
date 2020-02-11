@@ -21,7 +21,7 @@ function uploadFile($name, $path, $size)
     }
 
     $config['upload_path']          = $path;
-    $config['allowed_types']        = 'pdf|doc|docx';
+    $config['allowed_types']        = 'pdf|doc|docx|PDF';
     $config['encrypt_name']         = TRUE;
     $config['overwrite']            = true;
     $config['max_size']             = $ukuran;
@@ -29,7 +29,7 @@ function uploadFile($name, $path, $size)
     $CI->load->library('upload', $config);
 
     if (!$CI->upload->do_upload($name)) {
-        return 'default.png';
+        return NULL;
     } else {
         return $CI->upload->data('file_name');
     }

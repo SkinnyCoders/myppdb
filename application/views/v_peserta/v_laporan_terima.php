@@ -15,13 +15,38 @@
       margin-top: 10px;
       display: inline-block;
     }
+
+    .header .header-text{
+      text-align: center;
+    }
+
+    .header .header-text small{
+      font-size: 12px;
+      color: #333 ;
+    }
   </style>
 </head>
 <body>
   <div id="outtable">
     <div class="header">
-      <h2 style="margin-left: 200px">Kartu Tanda Diterima</h2>
-      <p>SMK Muhammadiyah Mlati <span style="margin-left: 270px;">No.Pendaftaran : <?=$peserta['no_pendaftaran']?></span></p>
+      <div class="header">
+        <table border="0">
+          <tr>
+            <td width="10">
+              <div class="header-img">
+                <img style="width: 100px; height: 100px; border-radius: 5px;" src="/opt/lampp/htdocs/myppdb/assets/img/logo/logo-smk.png">
+              </div>
+            </td>
+            <td>
+              <div class="header-text">
+                <h2>Kartu Tanda Diterima <br> PPDB SMK Muhammadiyah Mlati <br>Tahun Ajaran <?=$tahun['tahun_mulai']?>/<?=$tahun['tahun_akhir']?></h2>
+                <small>Jl. Kaliurang Jl. Timor Tim. No.KM 6,5, Purwosari, Sinduadi, Kec. Mlati, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55284</small>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p>Jalur Pendaftaran: <?=ucwords($peserta['nama_jalur_pendaftaran'])?> <span style="float: right;">No.Pendaftaran : <?=$peserta['no_pendaftaran']?></span></p>
       <hr>
       <div class="gambar">
         <table border="0" cellpadding="0">

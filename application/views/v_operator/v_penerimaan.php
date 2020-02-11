@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <!-- form start -->
-                                    <form action="" method="post" role="form" enctype="multipart/form-data">
+                                    <form id="frm_input_srt" action="" method="post" role="form" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="form-group">
@@ -121,6 +121,12 @@
                                                     <input type="text" class="form-control" id="sisa" placeholder="Sisa Kouta" value="0" disabled>
                                                 </div>
                                             </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <input type="hidden" name="simpan" class="form-control">
+                                                    <input type="hidden" name="status" id="status_add" class="form-control">
+                                                </div>
+                                            </div>
                                         </div>
                                         <small class="text-muted"><i class="fa fa-exclamation-triangle"></i> Jika peserta diterima melebihi kouta yang ada maka otomatis peserta akan dicadangkan!</small>
                                         <div class="row">
@@ -149,7 +155,8 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="submit" name="simpan" class="btn btn-primary terima">Terima Peserta</button>
+                            <button type="submit" class="btn btn-primary terima-peserta">Terima Peserta</button>
+                            
                             </form>
                         </div>
                     </div>
@@ -257,6 +264,50 @@
                 $('#sisa').val(data);
 
             }
+        });
+    });
+
+    $('.terima-peserta').on('click',function(e){
+        e.preventDefault();
+        var status_peserta = 'terima';
+         Swal.fire({
+           title: 'Konfirmasi Penerimaan',
+           text: "Apakah anda yakin ingin mengkonfirmasi penerimaan peserta?, pastikan anda sudah memilih peserta yang ingin diterima!",
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Ya, Hapus!'
+         }).then(
+           function(isConfirm){
+            if (isConfirm.value){
+                $('#status_add').val(status_peserta);
+                $('#frm_input_srt').submit();
+            }else{
+                swal("Cancelled", "Your imaginary file is safe :)", "error");
+            };
+        });
+    });
+
+    $('.tolak-peserta').on('click',function(e){
+        e.preventDefault();
+        var status_peserta = 'tolak';
+         Swal.fire({
+           title: 'Konfirmasi Tolak Penerimaan',
+           text: "Apakah anda yakin ingin mengkonfirmasi tolak penerimaan peserta?, pastikan anda sudah memilih peserta yang ingin ditolak!",
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Ya, Hapus!'
+         }).then(
+           function(isConfirm){
+            if (isConfirm.value){
+                $('#status_add').val(status_peserta);
+                $('#frm_input_srt').submit();
+            }else{
+                swal("Cancelled", "Your imaginary file is safe :)", "error");
+            };
         });
     });
 </script>

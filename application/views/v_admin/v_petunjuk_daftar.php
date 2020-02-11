@@ -44,6 +44,15 @@
                                   <small class="text-danger mt-2"><?= form_error('petunjuk') ?></small>
                                 </div>
                                 <div class="form-group">
+                                  <label for="exampleInputFile">File Petunjuk</label>
+                                  <div class="input-group">
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" name="file" id="file">
+                                      <label class="custom-file-label" for="file">Pilih File</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
                                   <label for="exampleInputFile">Gambar Petunjuk</label>
                                   <div class="input-group">
                                     <div class="custom-file">

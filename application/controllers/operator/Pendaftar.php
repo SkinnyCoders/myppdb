@@ -162,6 +162,8 @@ class Pendaftar extends CI_controller
         ];
 
         getViews($data, 'v_operator/v_penerimaan');
+        var_dump($_POST);
+
 
         if (isset($_POST['simpan'])) {
             $terima = $_POST['terima'];
