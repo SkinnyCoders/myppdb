@@ -29,6 +29,7 @@
                           <div class="card-header">
                               <h3 class="card-title"><i class="far fa-dollar"></i> Data berhasil melakukan daftar ulang</h3>
                               <a class="btn btn-sm btn-primary float-right ml-3" href="<?=base_url('operator/daftar_ulang/tambah')?>"><i class="fa fa-plus"></i> Tambah Daftar Ulang</a>
+                              <a class="btn btn-sm btn-success float-right ml-3" href="<?=base_url('operator/daftar_ulang/rekap')?>"><i class="fa fa-download"></i> Download Rekap Daftar Ulang</a>
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->

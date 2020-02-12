@@ -28,7 +28,9 @@
                     <div class="card card-default ">
                         <div class="card-header">
                             <h3 class="card-title"><i class="far fa-dollar"></i> Data Penerimaan Peserta</h3>
-                            <a class="btn btn-sm btn-primary float-right ml-3 terima" data-toggle="modal" data-target="#modal-lg" href="javascript:void(0)"><i class="fa fa-plus"></i> Terima Peserta</a>
+                            <a class="btn btn-sm btn-primary float-right ml-3 terima" data-toggle="modal" data-target="#modal-lg" href="javascript:void(0)"><i class="fa fa-cog"></i> Terima Peserta</a>
+                            <a class="btn btn-sm btn-danger float-right ml-3" href="<?=base_url('operator/pendaftar/rekap_tolak')?>"><i class="fa fa-download"></i> Download Rekap Ditolak</a>
+                            <a class="btn btn-sm btn-success float-right ml-3" href="<?=base_url('operator/pendaftar/rekap_terima')?>"><i class="fa fa-download"></i> Download Rekap Diterima</a>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -43,6 +45,7 @@
                                         <th class="text-nowrap" style="width: 15%">Program Studi</th>
 
                                         <th class="text-nowrap" style="width: 15%">Tahun Ajaran</th>
+                                        <th class="text-nowrap" style="width: 10%">Status</th>
                                         <th style="width: 10%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -60,7 +63,15 @@
                                             <td><?= ucwords($d['nama_jalur_pendaftaran']) ?></td>
                                             <td><?= ucwords($d['nama_program_studi']) ?></td>
                                             <td><?= $tahun_ajaran['tahun_mulai'] ?>/<?= $tahun_ajaran['tahun_akhir'] ?></td>
-
+                                            <td>
+                                                <?php 
+                                                if ($d['status_kelulusan'] == 'lulus') {
+                                                    echo '<label class="btn btn-sm btn-success">Diterima</label>';
+                                                }else{
+                                                    echo '<label class="btn btn-sm btn-danger">Ditolak</label>'; 
+                                                }
+                                                ?>
+                                            </td>
                                             <td><a href="<?= base_url('operator/pendaftar/detail/' . $d['id_peserta']) ?>" target="_blank" id="" class="btn btn-sm btn-primary mr-3 update"><i class="fa fa-eye"></i> Detail</a></td>
                                         </tr>
                                     <?php
@@ -119,12 +130,9 @@
                                                 <div class="form-group">
                                                     <label for="nama">Sisa Kuota</label>
                                                     <input type="text" class="form-control" id="sisa" placeholder="Sisa Kouta" value="0" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <input type="hidden" name="simpan" class="form-control">
-                                                    <input type="hidden" name="status" id="status_add" class="form-control">
+
+
+                                                    <input type="hidden" name="tolak" id="tolak-val">
                                                 </div>
                                             </div>
                                         </div>
@@ -154,9 +162,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="submit" class="btn btn-primary terima-peserta">Terima Peserta</button>
-                            
+                        <div class="modal-footer content-right">
+                            <button type="submit" name="simpan" class="btn btn-primary terima-peserta">Terima Peserta</button>
+                            <button type="submit" class="btn btn-danger tolak-peserta">Tolak Peserta</button>
                             </form>
                         </div>
                     </div>
@@ -267,31 +275,30 @@
         });
     });
 
-    $('.terima-peserta').on('click',function(e){
-        e.preventDefault();
-        var status_peserta = 'terima';
-         Swal.fire({
-           title: 'Konfirmasi Penerimaan',
-           text: "Apakah anda yakin ingin mengkonfirmasi penerimaan peserta?, pastikan anda sudah memilih peserta yang ingin diterima!",
-           type: "warning",
-           showCancelButton: true,
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           confirmButtonText: 'Ya, Hapus!'
-         }).then(
-           function(isConfirm){
-            if (isConfirm.value){
-                $('#status_add').val(status_peserta);
-                $('#frm_input_srt').submit();
-            }else{
-                swal("Cancelled", "Your imaginary file is safe :)", "error");
-            };
-        });
-    });
+    // $('.terima-peserta').on('click',function(e){
+    //     e.preventDefault();
+    //     var status_peserta = 'terima';
+    //      Swal.fire({
+    //        title: 'Konfirmasi Penerimaan',
+    //        text: "Apakah anda yakin ingin mengkonfirmasi penerimaan peserta?, pastikan anda sudah memilih peserta yang ingin diterima!",
+    //        type: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: '#3085d6',
+    //        cancelButtonColor: '#d33',
+    //        confirmButtonText: 'Ya, Hapus!'
+    //      }).then(
+    //        function(isConfirm){
+    //         if (isConfirm.value){
+    //             $('#status_add').val(status_peserta);
+    //             $('#frm_input_srt').submit();
+    //         }else{
+    //             swal("Cancelled", "Your imaginary file is safe :)", "error");
+    //         };
+    //     });
+    // });
 
     $('.tolak-peserta').on('click',function(e){
         e.preventDefault();
-        var status_peserta = 'tolak';
          Swal.fire({
            title: 'Konfirmasi Tolak Penerimaan',
            text: "Apakah anda yakin ingin mengkonfirmasi tolak penerimaan peserta?, pastikan anda sudah memilih peserta yang ingin ditolak!",
@@ -303,11 +310,15 @@
          }).then(
            function(isConfirm){
             if (isConfirm.value){
-                $('#status_add').val(status_peserta);
+                $('#tolak-val').val('true');
                 $('#frm_input_srt').submit();
             }else{
                 swal("Cancelled", "Your imaginary file is safe :)", "error");
             };
         });
     });
+
+    $('.terima-peserta').on('click', function(){
+        $('#tolak-val').val('');
+    })
 </script>

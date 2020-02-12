@@ -162,8 +162,6 @@ class Pendaftar extends CI_controller
         ];
 
         getViews($data, 'v_operator/v_penerimaan');
-        var_dump($_POST);
-
 
         if (isset($_POST['simpan'])) {
             $terima = $_POST['terima'];
@@ -199,6 +197,28 @@ class Pendaftar extends CI_controller
                 redirect('operator/pendaftar/penerimaan');
             } else {
                 $this->session->set_flashdata('msg_failed', 'Maaf, gagal melakukan penerimaan peserta');
+                redirect('operator/pendaftar/penerimaan');
+            }
+        }elseif(isset($_POST['tolak']) && $_POST['tolak'] == 'true'){
+            $terima = $_POST['terima'];
+            $total = count($terima);
+            $id_jurusan = $_POST['jurusan'];
+
+            $flag = 1;
+            foreach ($terima as $t) {
+                $id_pendaftaran = $_POST['id_pendaftaran' . $t];
+
+                //update status menjadi diterima
+                $this->db->set('status_kelulusan', 'tidak_lulus');
+                $this->db->where('id_pendaftaran', $id_pendaftaran);
+                $proses = $this->db->update('pendaftaran');
+            }
+
+            if ($proses) {
+                $this->session->set_flashdata('msg_success', 'Selamt, berhasil melakukan konfirmasi tolak peserta');
+                redirect('operator/pendaftar/penerimaan');
+            } else {
+                $this->session->set_flashdata('msg_failed', 'Maaf, gagal melakukan konfirmasi tolak peserta');
                 redirect('operator/pendaftar/penerimaan');
             }
         }
@@ -286,5 +306,32 @@ class Pendaftar extends CI_controller
         $this->pdf->setPaper('A4', 'potrait');
         $this->pdf->filename = "rekap_peserta.pdf";
         $this->pdf->load_view('v_operator/v_rekap_peserta', $data);
+
+    }
+
+    public function rekap_tolak(){
+        $data['rekap'] = $this->m_operator->getRekapTolak(getIdTahun(getTahun()));
+        $data['tahun'] = $this->db->get_where('tahun_ajaran', ['id_tahun_ajaran' => getIdTahun(getTahun())])->row_array();
+
+        $tahun_ajaran = $data['tahun']['tahun_mulai'].'/'.$data['tahun']['tahun_akhir'];
+
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "rekap_peserta_ditolak.pdf";
+        $this->pdf->load_view('v_operator/v_rekap_peserta_tolak', $data);
+    }
+
+    public function rekap_terima(){
+        $data['rekap'] = $this->m_operator->getRekapTerima(getIdTahun(getTahun()));
+        $data['tahun'] = $this->db->get_where('tahun_ajaran', ['id_tahun_ajaran' => getIdTahun(getTahun())])->row_array();
+
+        $tahun_ajaran = $data['tahun']['tahun_mulai'].'/'.$data['tahun']['tahun_akhir'];
+
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "rekap_peserta_diterima.pdf";
+        $this->pdf->load_view('v_operator/v_rekap_peserta_terima', $data);
     }
 }
