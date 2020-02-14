@@ -9,6 +9,7 @@ class Login extends CI_controller
 	public function __construct()
 	{
 		parent::__construct();
+        $this->load->helper('captcha');
 	}
 
 	public function index()
@@ -25,34 +26,41 @@ class Login extends CI_controller
         );
         $condition = array('email_peserta' => $data['username_peserta']);
         $data_peserta = $this->db->get_where('peserta', $condition)->row_array();
-        if ($data_peserta == null){
-            $data_msg = array(
-                'tipe' => 'error',
-                'msg' => 'Anda belum terdaftar.'
-            );
-        }else{
-            if (password_verify($this->input->post('password'), $data_peserta['password_peserta'])) {
-
-                $data_session = array(
-                    'is_login' => 'punten',
-                    'nama' => $data_peserta['email_peserta'],
-                    'role' => $data_peserta['id_role'],
-                    'nama_role' => 'peserta',
-                    'id_peserta' => $data_peserta['id_peserta']
-                );
-                $this->session->set_userdata($data_session);
-                $this->session->set_flashdata('msg_success', 'Selamat, Anda berhasil login');
-           	$data_msg = array(
-                    'tipe' => 'success',
-                    'msg' => 'Login berhasil'
-                );
-                
-            }else{
+        if (get_Captcha()) {
+            if ($data_peserta == null){
                 $data_msg = array(
                     'tipe' => 'error',
-                    'msg' => 'Password yang anda masukan salah.'
+                    'msg' => 'Anda belum terdaftar.'
                 );
+            }else{
+                if (password_verify($this->input->post('password'), $data_peserta['password_peserta'])) {
+
+                    $data_session = array(
+                        'is_login' => 'punten',
+                        'nama' => $data_peserta['email_peserta'],
+                        'role' => $data_peserta['id_role'],
+                        'nama_role' => 'peserta',
+                        'id_peserta' => $data_peserta['id_peserta']
+                    );
+                    $this->session->set_userdata($data_session);
+                    $this->session->set_flashdata('msg_success', 'Selamat, Anda berhasil login');
+                $data_msg = array(
+                        'tipe' => 'success',
+                        'msg' => 'Login berhasil'
+                    );
+                    
+                }else{
+                    $data_msg = array(
+                        'tipe' => 'error',
+                        'msg' => 'Password yang anda masukan salah.'
+                    );
+                }
             }
+        }else{
+            $data_msg = array(
+                'tipe' => 'error',
+                'msg' => 'Captcha Salah, Harap Reload Halaman!'
+            );
         }
         echo json_encode($data_msg);
 	}

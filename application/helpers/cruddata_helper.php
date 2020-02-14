@@ -21,3 +21,27 @@ function insertData($table, $data)
 		return false;
 	}
 }
+
+function updateData($table, $data, $id, $value_id)
+{
+	$CI = &get_instance();
+
+	$update = $CI->db->update($table, $data, [$id => $value_id]);
+	if ($update) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function deleteData($table, $id, $value_id){
+	$CI = &get_instance();
+
+	$delete = $CI->db->delete($table, [$id => $value_id]);
+
+	if ($delete) {
+		return true;
+	}else{
+		return false;
+	}
+}

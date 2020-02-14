@@ -88,9 +88,7 @@ class Biaya_masuk extends CI_Controller
                 'batas_pembayaran' => $batas
             ];
 
-            $update = $this->db->update('biaya_masuk', $data, ['id_biaya_masuk' => $id_biaya]);
-
-            if ($update) {
+            if (updateData('biaya_masuk', $data, 'id_biaya_masuk', $id_biaya)) {
                 $this->session->set_flashdata('msg_success', 'Selamat, data berhasil diperbarui');
                 redirect('admin/pendaftaran/biaya_masuk');
             }else{
@@ -125,8 +123,18 @@ class Biaya_masuk extends CI_Controller
         if (isset($_POST['id'])) {
             $id_biaya = $_POST['id'];
 
-            $data = $this->db->get_where('biaya_masuk', ['id_biaya_masuk' => $id_biaya])->row_array();
+            $biaya = $this->db->get_where('biaya_masuk', ['id_biaya_masuk' => $id_biaya])->row_array();
+            $batas = DateTime::createFromFormat('Y-m-d', $biaya['batas_pembayaran'])->format('m/d/Y');
 
+            $data = [
+                'id_biaya_masuk' => $biaya['id_biaya_masuk'],
+                'id_jalur_pendaftaran' => $biaya['id_jalur_pendaftaran'],
+                'id_program_studi' => $biaya['id_program_studi'],
+                'id_tahun_ajaran' => $biaya['id_tahun_ajaran'],
+                'jenis_biaya_masuk' => $biaya['jenis_biaya_masuk'],
+                'jumlah_biaya_masuk' => $biaya['jumlah_biaya_masuk'],
+                'batas_pembayaran' => $batas
+            ];
             echo json_encode($data);
         }
     }

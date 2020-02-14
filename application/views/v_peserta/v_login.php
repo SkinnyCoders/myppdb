@@ -31,7 +31,8 @@
                             <input name="password" type="password" class="form-control"
                                    id="inputPassword" placeholder="Password" required>
                         </div>
-                        <button id="btnForm" type="submit" class="btn btn-danger btn-lg border btn-block mt-5">
+                        <div style="width: 100%" class="g-recaptcha mt-3" data-sitekey="<?php echo $this->config->item('google_key') ?>"></div>
+                        <button id="btnForm" type="submit" class="btn btn-danger btn-lg border btn-block mt-2">
                             Login
                         </button>
                     </form>
@@ -51,6 +52,7 @@
     </div>
 
     <!-- Page JS  -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script>
         $("#body-alert-danger").hide();
         /* Get from elements values */
@@ -59,6 +61,8 @@
                 // Prevent default posting of form - put here to work in case of errors
                 event.preventDefault();
                 var values = $(this).serialize();
+
+                console.log(values);
 
                 $.ajax({
                     url: "<?= site_url('c_home/login/auth') ?>",

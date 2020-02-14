@@ -57,8 +57,14 @@
             </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div style="width: 100%" class="g-recaptcha" data-sitekey="<?php echo $this->config->item('google_key') ?>"></div>
+            </div>
+          </div>
     
-        <div class="row">
+        <div class="row mt-3">
           <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" name="remember" id="remember">
@@ -98,6 +104,8 @@
 <script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js')?>"></script>
 <!-- Toastr -->
 <script src="<?= base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <script>
 $(function() {

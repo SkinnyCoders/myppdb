@@ -62,8 +62,6 @@
       <div class="info">
         <h5 class="text-nowrap d-block text-header text-white"><?= ucwords($this->session->userdata('nama')) ?></h5>
         <span><small class="d-block text-muted"><?= ucwords($this->session->userdata('nama_role')) ?></small></span>
-
-
       </div>
     </div>
 
@@ -506,6 +504,16 @@
               </li>
             </ul>
           </li>
+          <?php
+          $petunjuk = $this->db->get('petunjuk_pendaftaran')->row_array();
+          if (!empty($petunjuk['file_petunjuk']) || $petunjuk['file_petunjuk'] !== NULL) : ?>
+          <li class="nav-item">
+            <a href="<?=base_url('assets/uploads/berkas_info/'.$petunjuk['file_petunjuk'])?>" class="btn btn-block btn-primary" target="_blank">
+              <i class="nav-icon fa fa-download"></i>
+                Download Petunjuk
+            </a>
+          </li>
+        <?php endif; ?>
         <?php } ?>
       </ul>
     </nav>
