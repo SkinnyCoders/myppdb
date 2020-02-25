@@ -79,9 +79,10 @@ class Seleksi extends CI_controller
     }
 
     public function tes($id_seleksi){
-        $data['title'] = "Tes Seleksi";
+        
         $data['soal'] = $this->m_peserta->getSoal($id_seleksi);
         $data_tes = $this->db->get_where('tes_seleksi', ['id_tes_seleksi' => $id_seleksi])->row_array();
+        $data['title'] = $data_tes['nama_tes_seleksi'];
 
         getViews($data, 'v_peserta/v_tes_seleksi');
 

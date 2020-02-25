@@ -11,12 +11,12 @@
             ?>
         <div class="row px-3">
             <h4 class="font-weight-bold"><?=ucwords($jurusan['nama_program_studi'])?></h4>
-
                 <?php foreach ($jalur as $j) { ?>
             <div class="col-md-12 py-0 my-3 table-responsive">
                 <div class="row mb-3">
-                    <h5><?=$j['nama_jalur_pendaftaran']?></h5>
                     <?php $biaya = $this->m_pendaftaran->getBiayaViewJalur($j['id_jalur_pendaftaran'], $id_tahun['id_tahun_ajaran'], $jurusan['id_program_studi']);
+                    if (!empty($biaya)) {
+                        echo '<h5>'.$j['nama_jalur_pendaftaran'].'</h5>'
                     ?>
                     <table class="table table-striped">
                     <thead class="text-danger">
@@ -39,6 +39,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <?php } ?>
                 </div>
             </div>
                 <?php } ?>

@@ -5,7 +5,7 @@
           <div class="container-fluid">
               <div class="row mb-2">
                   <div class="col-sm-6">
-                      <h1 class="m-0 text-dark">Tes Buta Warna</h1>
+                      <h1 class="m-0 text-dark"><?=$title?></h1>
                   </div><!-- /.col -->
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
@@ -18,8 +18,6 @@
           </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
-
-      
 
       <!-- Main content -->
       <section class="content">
@@ -94,6 +92,7 @@
                               </div>
                               <!-- /.card-body -->
                               <div class="card-footer">
+                                <a href="<?=base_url('peserta/seleksi')?>" class="btn btn-danger">KEMBALI!</a>
                                 <button type="submit" class="btn btn-primary float-right" name="selesai">SELESAI!</button>
                                 
                               </div>

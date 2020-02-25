@@ -37,7 +37,7 @@ class Penghargaan extends CI_Controller
             getViews($data, 'v_admin/v_add_penghargaan');
         } else {
             if (!empty($_FILES['foto']['name'])) {
-                $gambar = uploadImage('foto', '.assets/img/uploads/', '');
+                $gambar = uploadImage('foto', 'assets/img/uploads/', '');
             } else {
                 $gambar = 'default-image.png';
             }
@@ -90,7 +90,7 @@ class Penghargaan extends CI_Controller
                 redirect('admin/sekolah/penghargaan');
             } else {
                 if (!empty($_FILES['foto']['name'])) {
-                    $gambar = uploadImage('foto', '.assets/img/uploads/', '');
+                    $gambar = uploadImage('foto', 'assets/img/uploads/', '');
                     if ($dataPenghargaan['foto_penghargaan'] !== 'default-image.png') {
                         unlink('assets/img/uploads/' . $dataPenghargaan['foto_penghargaan']);
                     }
